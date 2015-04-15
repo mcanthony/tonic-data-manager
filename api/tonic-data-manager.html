@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tonic Data Manager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/tonic-data-manager/css/main.css">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+      <header class="site-header">
+      
+        <div class="wrapper">
+      
+          <a class="site-title" href="/tonic-data-manager/">
+              <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+              Tonic Data Manager
+          </a>
+      
+          <nav class="site-nav">
+            <a href="#" class="menu-icon">
+              <svg viewBox="0 0 18 15">
+                <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+                <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+                <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+              </svg>
+            </a>
+      
+            <div class="trigger">
+              <a class="page-link" href="/tonic-data-manager/">Home</a>
+              <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+              <a class="page-link" href="/tonic-data-manager/news">News</a>
+              <a class="page-link" href="/tonic-data-manager/dev">Dev</a>
+            </div>
+          </nav>
+      
+        </div>
+      
+      </header>
+              <div id="wrapper">
+                  <div id="content">
+      
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1>Tonic Data Manager</h1>
+
+<p>This module allow the user to fetch data (JSON, Text, ArrayBuffer, blob) and 
+cache the result for future use. Additional pattern based URL request can 
+be achieved. Image can also be retrieved as a blob and can be display using
+a generated browser url.</p>
+
+<h2>Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#fetchURL">fetchURL()</a></li>
+<li><a href="#fetch">fetch()</a></li>
+<li><a href="#get">get()</a></li>
+<li><a href="#free">free()</a></li>
+<li><a href="#registerURL">registerURL()</a></li>
+<li><a href="#unregisterURL">unregisterURL()</a></li>
+<li><a href="#clear">clear()</a></li>
+<li><a href="#on">on()</a></li>
+</ul>
+
+<h2>fetchURL(url, type[, mimeType]) <a href="#fetchURL" id="fetchURL" class="deep-link">#</a></h2>
+
+<p>This method is used to fetch a data object from a static URL. The set of possible
+data type are: [ json', 'text', 'blob', 'array' ]</p>
+
+<p>For the <strong>blob</strong> type, an extra argument is required which is the mime type of
+the Blob.</p>
+
+<pre class="brush:javascript">
+var url = '/data/myJsonFile.json';
+tonicDataManager.on(url, function(error, dataObject) {
+    console.log("Got " + dataObject.type + " object from " + dataObject.requestedURL + " - last access time: " + dataObject.ts);
+    console.log(dataObject.data);
+});
+
+tonicDataManager.fetchURL(url, 'json');
+</pre>
+
+<h2>fetch(key, options) <a href="#fetch" id="fetch" class="deep-link">#</a></h2>
+
+<p>This methods let you download a resource based on a previously registered pattern
+with specific key/value pair replacement.</p>
+
+<p>Here is a full example using that method:</p>
+
+<pre class="brush:js">
+function onJsonData(error, cacheDataObject) {
+    if(error) {
+        // Something wrong happened
+        throw error;
+    }
+
+    var jsonObj = cacheDataObject.data;
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // Access data from JSON object
+    console.log(" - str: " + jsonObj.str);
+    console.log(" - array: " + jsonObj.array);
+    console.log(" - nestedObject.a: " + jsonObj.nestedObject.a);
+}
+
+tonicDataManager.registerURL('jsonDataModel', '/data/{name}.json', 'json');
+tonicDataManager.on('jsonDataModel', onJsonData);
+tonicDataManager.fetch('jsonDataModel', { name: 'info'});
+</pre>
+
+<h2>get(url[, freeCache]) <a href="#get" id="get" class="deep-link">#</a></h2>
+
+<p>This method will return the downloaded data object if available or an <strong>undefined</strong>
+object.</p>
+
+<p>The <em>freeCache</em> argument is optional and should be <em>true</em> if you want to remove
+the given resource from the cache.</p>
+
+<p>The standard returned object will looks like that:</p>
+
+<pre class="brush:js">
+{
+    ts: 23423452, // Last access time in milliseconds.
+    data: "str" | { json: 'data'} | Blob() | Uint8Array(), // Raw data depending of the fetch data type.
+    type: 'text' | 'json' | 'blob' | 'arraybuffer',
+    url: ...internal browser url to point to the data..., // This can be use to render images
+    requestedURL: '/origin/requested/url'
+}
+</pre>
+
+<h2>free(url) <a href="#free" id="free" class="deep-link">#</a></h2>
+
+<p>Remove the entry from the cache based on the <strong>requestedURL</strong> of a cache entry.</p>
+
+<h2>registerURL(key, urlPattern, type, mimeType) <a href="#registerURL" id="registerURL" class="deep-link">#</a></h2>
+
+<p>This allow you to register pattern based URL to ease data fetching from it.</p>
+
+<pre class="brush:js">
+var pattern = '/data/{ds}/image_{idx}.png';
+var key = 'image_ds'
+tonicDataManager.registerURL(key, pattern, 'blob', 'image/png');
+
+tonicDataManager.on(key, function(error, dataObject) {
+    console.log(
+        "Got " + dataObject.type + " object from " + dataObject.requestedURL 
+        + " - last access time: " + dataObject.ts 
+        + " - usable url: " + dataObject.url);
+});
+
+tonicDataManager.fetch(key, { idx: 0, ds: 'temperature' });
+tonicDataManager.fetch(key, { idx: 1, ds: 'temperature' });
+tonicDataManager.fetch(key, { idx: 2, ds: 'temperature' });
+tonicDataManager.fetch(key, { idx: 0, ds: 'pressure' });
+tonicDataManager.fetch(key, { idx: 1, ds: 'pressure' });
+tonicDataManager.fetch(key, { idx: 2, ds: 'pressure' });
+</pre>
+
+<h2>unregisterURL(key) <a href="#unregisterURL" id="unregisterURL" class="deep-link">#</a></h2>
+
+<p>Remove the pattern from the registry.</p>
+
+<h2>clear() <a href="#clear" id="clear" class="deep-link">#</a></h2>
+
+<p>Empty the content of the cache.</p>
+
+<h2>on(event, listener) <a href="#on" id="on" class="deep-link">#</a></h2>
+
+<p>Attach a listener to a <strong>url</strong> or a pattern key.</p>
+
+<p>Here is a list of possible listener functions</p>
+
+<pre class="brush:js">
+function onJsonData(error, cacheDataObject) {
+    if(error) {
+        // Something wrong happened
+        throw error;
+    }
+
+    var jsonObj = cacheDataObject.data;
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // Access data from JSON object
+    console.log(" - str: " + jsonObj.str);
+    console.log(" - array: " + jsonObj.array);
+    console.log(" - nestedObject.a: " + jsonObj.nestedObject.a);
+}
+
+function onTxtData(error, cacheDataObject) {
+    if(error) {
+        // Something wrong happened
+        throw error;
+    }
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // Replace content inside your DOM
+    var strHTML = cacheDataObject.data;
+    $('.help').html(strHTML);
+}
+
+function onBlobData(error, cacheDataObject) {
+    var blob = cacheDataObject.data;
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // The URL let you provide a link to the blob
+    console.log(" - Usable URL: " + cacheDataObject.url);
+}
+
+function onArrayData(error, cacheDataObject) {
+    if(error) {
+        // Something wrong happened
+        throw error;
+    }
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // Replace content inside your DOM
+    var Uint8ArrayObj = cacheDataObject.data;
+    // [...]
+}
+
+function onImage(error, cacheDataObject) {
+    var blob = cacheDataObject.data;
+
+    // Print additional cache meta data
+    console.log(" - Last read time: " + cacheDataObject.ts);
+    console.log(" - Data Type: " + cacheDataObject.type);
+    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+
+    // The URL let you provide a link to the blob
+    console.log(" - Usable URL: " + cacheDataObject.url);
+
+    // Update the image in the DOM
+    $('.image-to-refresh').attr('src', cacheDataObject.url);
+}
+</pre>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>

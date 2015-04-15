@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tonic Data Manager</title>
+    <description>Data retrieval and management made easy</description>
+    <link>/tonic-data-manager/</link>
+    <atom:link href="/tonic-data-manager/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 15 Apr 2015 16:24:32 -0600</pubDate>
+    <lastBuildDate>Wed, 15 Apr 2015 16:24:32 -0600</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>First Release</title>
+        <description>&lt;p&gt;We are please to release that tiny (2.2K min.gz) library to the public and eager
+to start using it inside our bigger projects.&lt;/p&gt;
+
+&lt;p&gt;Tonic components are meant to be used via &lt;em&gt;require&lt;/em&gt; and packaged within your
+application using &lt;em&gt;&lt;a href=&quot;http://webpack.github.io&quot;&gt;WebPack&lt;/a&gt;&lt;/em&gt; or &lt;em&gt;&lt;a href=&quot;http://browserify.org&quot;&gt;Browserify&lt;/a&gt;&lt;/em&gt;. But we also provide a &lt;em&gt;Bower&lt;/em&gt;
+independent JavaScript file that can be imported within a Script tag which
+will expand the global namespace with a &lt;em&gt;tonicDataManager&lt;/em&gt; object.&lt;/p&gt;
+
+&lt;p&gt;Please refer to the available documentation for more insight on how that library
+can help you in managing your remote data by easing the path to its access.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2015 12:00:00 -0600</pubDate>
+        <link>/tonic-data-manager/release/2015/04/15/first-release.html</link>
+        <guid isPermaLink="true">/tonic-data-manager/release/2015/04/15/first-release.html</guid>
+        
+        
+        <category>release</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Tonic Data Manager</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="/tonic-data-manager/css/main.css">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/tonic-data-manager/">
+        <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+        Tonic Data Manager
+    </a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <a class="page-link" href="/tonic-data-manager/">Home</a>
+        <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+        <a class="page-link" href="/tonic-data-manager/news">News</a>
+        <a class="page-link" href="/tonic-data-manager/dev">Dev</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>pattern.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="pattern.html">
+                    pattern.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="request.html">
+                    request.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-probe-ds.html">
+                    test-probe-ds.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="tonic-data-manager.html">
+                    tonic-data-manager.js
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        <p>The goal of that module is to be able to register a set of String pattern
+and have a simple way to evaluate that pattern from an object.
+Here is an example on how the following module can be used.</p>
+<pre><code>m.registerPattern(<span class="hljs-string">'imagesURL'</span>, <span class="hljs-string">'{time}/{pressure}/{phi}_{theta}.png'</span>);
+m.registerPattern(<span class="hljs-string">'jsonURL'</span>, <span class="hljs-string">'{time}/{pressure}/data.json'</span>);
+<span class="hljs-keyword">var</span> time = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+    pressure = [<span class="hljs-number">34</span>, <span class="hljs-number">35</span>, <span class="hljs-number">36</span>],
+    phi = [<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>, <span class="hljs-number">60</span>, <span class="hljs-number">70</span>, <span class="hljs-number">80</span>, <span class="hljs-number">90</span>],
+    theta = [<span class="hljs-number">0</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">60</span>, <span class="hljs-number">80</span>];
+
+timeCount =  time.length;
+<span class="hljs-keyword">var</span> options = {};
+<span class="hljs-keyword">while</span>(timeCount--) {
+   options.time = time[timeCount];
+   pressureCount = pressure.length;
+   <span class="hljs-keyword">while</span>(pressureCount--) {
+      options.pressure = pressure[pressureCount];
+      phiCount = phi.length;
+      <span class="hljs-keyword">while</span>(phiCount--) {
+         options.phi = phi[phiCount];
+         thetaCount = theta.length;
+         <span class="hljs-keyword">while</span>(thetaCount--) {
+            options.theta = theta[thetaCount];
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">" =&gt; Image: "</span> + m.getValue(<span class="hljs-string">'imageURL'</span>, options));
+         }
+      }
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">" =&gt; JSON: "</span> + m.getValue(<span class="hljs-string">'jsonURL'</span>, options));
+   }
+}
+m.unregisterPattern(<span class="hljs-string">'imageURL'</span>);
+</code></pre>
+        
+      
+        
+        <p>The Module keep its pattern internally within the following object.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-keyword">var</span> keyPatternMap = {};</pre></div>
+        
+      
+        
+        <p>Register a pattern to a given key</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerPattern</span><span class="hljs-params">(key, pattern)</span> </span>{
+    keyPatternMap[key] = pattern;
+}</pre></div>
+        
+      
+        
+        <p>Unregister a key</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregisterPattern</span><span class="hljs-params">(key)</span> </span>{
+    <span class="hljs-keyword">delete</span> keyPatternMap[key];
+}</pre></div>
+        
+      
+        
+        <p>Evaluate the pattern base on its registered key and set of key to be replaced</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(key, options)</span> </span>{
+    <span class="hljs-keyword">var</span> result = keyPatternMap[key],
+        keyPattern = [<span class="hljs-string">'{'</span>, <span class="hljs-string">'}'</span>];
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> opt <span class="hljs-keyword">in</span> options) {
+        result = result.replace(keyPattern.join(opt), options[opt]);
+    }
+
+    <span class="hljs-keyword">return</span> result;
+}</pre></div>
+        
+      
+        
+        <p>Export methods</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = {
+    registerPattern: registerPattern, 
+    unregisterPattern: unregisterPattern,
+    getValue: getValue
+};</pre></div>
+        
+      
+    </div>
+  </div>
+</body>
+</html>

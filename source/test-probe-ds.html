@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Tonic Data Manager</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="/tonic-data-manager/css/main.css">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/tonic-data-manager/">
+        <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+        Tonic Data Manager
+    </a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <a class="page-link" href="/tonic-data-manager/">Home</a>
+        <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+        <a class="page-link" href="/tonic-data-manager/news">News</a>
+        <a class="page-link" href="/tonic-data-manager/dev">Dev</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>test-probe-ds.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="pattern.html">
+                    pattern.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="request.html">
+                    request.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-probe-ds.html">
+                    test-probe-ds.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="tonic-data-manager.html">
+                    tonic-data-manager.js
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>describe(<span class="hljs-string">"Tonic Data Manager - Download JSON/Images using pattern"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    it(<span class="hljs-string">'test fetch for probe ds'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(done)</span> </span>{ 
+        <span class="hljs-keyword">var</span> jsonDataModel = {},
+            nbImageAvailable = <span class="hljs-number">0</span>,
+            exepectedNbImages = <span class="hljs-number">1</span>,
+            urlToBeValid = [],
+            nbToFree = <span class="hljs-number">0</span>,
+            alreadyFree = <span class="hljs-number">0</span>;
+
+        expect(tonicDataManager).toBeDefined();
+
+        tonicDataManager.on(<span class="hljs-string">'/data/probe/info.json'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
+            testHelper(<span class="hljs-literal">null</span>, data);
+        });
+
+        tonicDataManager.on(<span class="hljs-string">'images'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
+            testHelper(<span class="hljs-literal">null</span>, data);
+        });
+
+        tonicDataManager.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, data)</span> </span>{
+            testHelper(error, data);
+        });</pre></div>
+        
+      
+        
+        <p>Trigger the download request</p>
+
+        
+          <div class='highlight'><pre>        <span class="hljs-keyword">var</span> fetchURL = <span class="hljs-string">'/data/probe/info.json'</span>,
+            url = tonicDataManager.fetchURL(fetchURL, <span class="hljs-string">'json'</span>);
+        expect(url).toEqual(fetchURL);</pre></div>
+        
+      
+        
+        <p>Look response</p>
+
+        
+          <div class='highlight'><pre>        testHelper.waitAndRun(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(d)</span> </span>{</pre></div>
+        
+      
+        
+        <p>No error</p>
+
+        
+          <div class='highlight'><pre>            expect(d.error).toBeNull();
+            expect(d.response).not.toBeNull();
+
+            jsonDataModel = d.response.data;
+
+            expect(jsonDataModel.dimensions).toEqual([<span class="hljs-number">500</span>, <span class="hljs-number">250</span>, <span class="hljs-number">30</span>]);
+            expect(jsonDataModel.spacing).toEqual([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">4.0</span>]);
+            expect(jsonDataModel.fields).toEqual([ <span class="hljs-string">"temperature"</span> ]);
+            expect(jsonDataModel.slices).toEqual([ <span class="hljs-string">"0"</span>, <span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span> ]);
+            expect(jsonDataModel.sprite_size).toEqual(<span class="hljs-number">10</span>);</pre></div>
+        
+      
+        
+        <p>Register file pattern</p>
+
+        
+          <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/data/probe/'</span> + jsonDataModel.name_pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
+            <span class="hljs-keyword">var</span> count = exepectedNbImages = jsonDataModel.slices.length;
+            <span class="hljs-keyword">while</span>(count--) {
+                tonicDataManager.fetch(<span class="hljs-string">'images'</span>, { 
+                    time: jsonDataModel.arguments.time.values[<span class="hljs-number">0</span>], 
+                    field: jsonDataModel.fields[<span class="hljs-number">0</span>], 
+                    slice: jsonDataModel.slices[count] 
+                });
+            }
+        }); 
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleImage</span><span class="hljs-params">(d)</span> </span>{
+            nbImageAvailable++;</pre></div>
+        
+      
+        
+        <p>No error</p>
+
+        
+          <div class='highlight'><pre>            expect(d.error).toBeNull();
+            expect(d.response).not.toBeNull();
+
+            urlToBeValid.push(d.response.requestedURL);
+
+            <span class="hljs-keyword">if</span>(nbImageAvailable === exepectedNbImages) {
+                <span class="hljs-keyword">var</span> count = urlToBeValid.length;
+                <span class="hljs-keyword">while</span>(count--) {
+                    expect(tonicDataManager.get(urlToBeValid[count])).not.toBeNull();
+                    <span class="hljs-keyword">var</span> freeResource = (count % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>);
+                    expect(tonicDataManager.get(urlToBeValid[count], freeResource).data.size).toBeGreaterThan(<span class="hljs-number">10</span>);
+                }</pre></div>
+        
+      
+        
+        <p>Test that the cache is empty</p>
+
+        
+          <div class='highlight'><pre>                count = urlToBeValid.length;
+                <span class="hljs-keyword">while</span>(count--) {
+                    <span class="hljs-keyword">if</span>(tonicDataManager.get(urlToBeValid[count])) {
+                        tonicDataManager.free(urlToBeValid[count]);
+                        nbToFree++;
+                    } <span class="hljs-keyword">else</span> {
+                        alreadyFree++;
+                    }
+                    expect(tonicDataManager.get(urlToBeValid[count])).toBeUndefined();</pre></div>
+        
+      
+        
+        <p>Should not hurt to free it again</p>
+
+        
+          <div class='highlight'><pre>                    tonicDataManager.free(urlToBeValid[count]);
+                }</pre></div>
+        
+      
+        
+        <p>We should have to free some</p>
+
+        
+          <div class='highlight'><pre>                expect(nbToFree).toBeGreaterThan(<span class="hljs-number">0</span>);
+                expect(alreadyFree).toBeGreaterThan(<span class="hljs-number">0</span>);
+
+                testHelper.done(done);
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nbImageAvailable &lt; exepectedNbImages) {
+                testHelper.waitAndRun(handleImage);
+            }
+        }
+
+        testHelper.waitAndRun(handleImage);
+    });
+});</pre></div>
+        
+      
+    </div>
+  </div>
+</body>
+</html>
