@@ -1,0 +1,10 @@
+- title: Installation
+  docs:
+  - home
+  - webpack
+
+- title: Getting Started
+  docs:
+  - basic_url
+  - pattern
+  - download_type
