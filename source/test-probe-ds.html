@@ -137,24 +137,23 @@
 
             jsonDataModel = d.response.data;
 
-            expect(jsonDataModel.dimensions).toEqual([<span class="hljs-number">500</span>, <span class="hljs-number">250</span>, <span class="hljs-number">30</span>]);
-            expect(jsonDataModel.spacing).toEqual([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">4.0</span>]);
-            expect(jsonDataModel.fields).toEqual([ <span class="hljs-string">"temperature"</span> ]);
-            expect(jsonDataModel.slices).toEqual([ <span class="hljs-string">"0"</span>, <span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span> ]);
-            expect(jsonDataModel.sprite_size).toEqual(<span class="hljs-number">10</span>);</pre></div>
+            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].dimensions).toEqual([<span class="hljs-number">500</span>, <span class="hljs-number">250</span>, <span class="hljs-number">30</span>]);
+            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].spacing).toEqual([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">4.0</span>]);
+            expect(jsonDataModel.arguments.field.values).toEqual([ <span class="hljs-string">"temperature"</span> ]);
+            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].sprite_size).toEqual(<span class="hljs-number">10</span>);</pre></div>
         
       
         
         <p>Register file pattern</p>
 
         
-          <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/data/probe/'</span> + jsonDataModel.name_pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
-            <span class="hljs-keyword">var</span> count = exepectedNbImages = jsonDataModel.slices.length;
+          <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/data/probe/'</span> + jsonDataModel.data[<span class="hljs-number">0</span>].pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
+            <span class="hljs-keyword">var</span> count = exepectedNbImages = jsonDataModel.arguments.slice.values.length;
             <span class="hljs-keyword">while</span>(count--) {
                 tonicDataManager.fetch(<span class="hljs-string">'images'</span>, { 
                     time: jsonDataModel.arguments.time.values[<span class="hljs-number">0</span>], 
-                    field: jsonDataModel.fields[<span class="hljs-number">0</span>], 
-                    slice: jsonDataModel.slices[count] 
+                    field: jsonDataModel.arguments.field.values[<span class="hljs-number">0</span>], 
+                    slice: jsonDataModel.arguments.slice.values[count] 
                 });
             }
         }); 
