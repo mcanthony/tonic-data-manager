@@ -1,27 +1,38 @@
 {
-   "dimensions": [500, 250, 30],
-   "spacing": [1.0, 1.0, 4.0],
-   "fields" : [ "temperature" ],
-   "ranges" : {
-      "temperature": [-5, 30]
-   },
-   "sprite_size" : 10,
-   "slices" : ["0", "1", "2"],
-   "name_pattern": "{time}/{field}_{slice}.png",
-   "metadata": {
+  "type" : [ "tonic-query-data-model", "slice-prober" ],
+  "arguments": {
+      "time": {
+         "ui": "slider",
+         "values": [ "0", "1", "2" ],
+         "label": "Time" },
+      "field": {
+        "values": [ "temperature" ]
+      },
+      "slice": {
+        "values": [ "0", "1", "2" ]
+      }
+  },
+  "arguments_order": [ "field", "time" ],
+  "data": [
+      {
+        "name": "slice",
+        "type": "blob",
+        "mimeType": "image/png",
+        "pattern": "{time}/{field}_{slice}.png"
+      }
+  ],
+  "metadata": {
       "title": "Ocean simulation data",
       "type": "probe-slice",
       "id": "mpas-probe-data",
       "description": "Some simulation data from MPAS"
-   },
-   "arguments": {
-      "time": {
-         "default": "0",
-         "type": "range",
-         "values": [ "0", "1", "2" ],
-         "label": "Time" }
-    },
-    "control": {
-        "order": ["time"]
+  },
+  "slice-prober": {
+    "sprite_size" : 10,
+    "dimensions": [ 500, 250, 30 ],
+    "spacing": [ 1.0, 1.0, 4.0 ],
+    "ranges" : {
+      "temperature": [-5, 30]
     }
+  }
 }
