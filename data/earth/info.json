@@ -4,13 +4,23 @@
         "phi": {
         	"ui": "slider",
         	"values": ["0", "15", "30", "45", "60", "75", "90", "105", "120", "135", "150", "165", "180", "195", "210", "225", "240", "255", "270", "285", "300", "315", "330", "345"],
-            "loop": "modulo"
+            "loop": "modulo",
+            "bind": {
+                "mouse" : {
+                    "drag" : { "modifier": 0, "coordinate": 0, "step": 10 }
+                }
+            }
         },
         "theta": {
         	"default": 1,
         	"ui": "slider",
         	"values": ["60", "90", "120"],
-            "loop": "reverse"
+            "loop": "reverse",
+            "bind": {
+                "mouse" : {
+                    "scroll" : { "modifier": 0, "coordinate": 1, "step": 0 }
+                }
+            }
         }
     },
     "arguments_order": [ "theta", "phi" ],
