@@ -18,8 +18,8 @@
             "loop": "reverse",
             "bind": {
                 "mouse" : {
-                    "scroll" : { "modifier": 0, "coordinate": 1, "step": 0 , "orientation": 1},
-                    "drag" : { "modifier": 0, "coordinate": 1, "step": 10 , "orientation": 1}
+                    "scroll" : { "modifier": 0, "coordinate": 1, "step": 0 },
+                    "drag" : { "modifier": 0, "coordinate": 1, "step": 10 , "orientation": -1}
                 }
             }
         }
