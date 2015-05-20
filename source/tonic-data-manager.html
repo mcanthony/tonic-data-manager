@@ -10,31 +10,32 @@
 <body>
 <header class="site-header">
 
-  <div class="wrapper">
-
-    <a class="site-title" href="/tonic-data-manager/">
-        <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
-        Tonic Data Manager
-    </a>
-
-    <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-
-      <div class="trigger">
-        <a class="page-link" href="/tonic-data-manager/">Home</a>
-        <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
-        <a class="page-link" href="/tonic-data-manager/news">News</a>
-        <a class="page-link" href="/tonic-data-manager/dev">Dev</a>
-      </div>
+    <nav class="mobile-nav show-on-mobiles">
+        <a class="page-link" href="/tonic-data-manager/"><i class="fa fa-home fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/docs/home"><i class="fa fa-book fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/news"><i class="fa fa-newspaper-o fa-fw fa-lg"></i></a>
     </nav>
+    <div class="wrapper">
 
-  </div>
+        <a class="site-title center-on-mobiles" href="/">
+            <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+            Tonic Data Manager
+        </a>
+        <nav class="site-nav hide-on-mobiles">
+            <a href="#" class="menu-icon">
+                <svg viewBox="0 0 18 15">
+                    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+                    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+                    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+                </svg>
+            </a>
+            <div class="trigger">
+                <a class="page-link" href="/tonic-data-manager/">Home</a>
+                <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+                <a class="page-link" href="/tonic-data-manager/news">News</a>
+            </div>
+        </nav>
+    </div>
 
 </header>
 
@@ -111,7 +112,7 @@
         <p>Internal helper that return the current time</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ts</span><span class="hljs-params">()</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ts</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
 }</pre></div>
         
@@ -122,7 +123,7 @@ Type can only be [‘json’, ‘text’, ‘blob’, ‘array’]
 mimeType is only required for blob</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerURL</span><span class="hljs-params">(key, filePattern, type, mimeType)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerURL</span>(<span class="hljs-params">key, filePattern, type, mimeType</span>) </span>{
     pattern.registerPattern(key, filePattern);
     keyToTypeMap[key] = [type, typeFnMap[type], mimeType];
 }</pre></div>
@@ -132,13 +133,13 @@ mimeType is only required for blob</p>
         <p>Free previously registered URL</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregisterURL</span><span class="hljs-params">(key)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregisterURL</span>(<span class="hljs-params">key</span>) </span>{
     pattern.unregisterPattern(key);
     <span class="hljs-keyword">delete</span> keyToTypeMap[key];
     emitter.removeAllListeners(key);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchURL</span><span class="hljs-params">(url, type, mimeType)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchURL</span>(<span class="hljs-params">url, type, mimeType</span>) </span>{
     keyToTypeMap[url] = [type, typeFnMap[type], mimeType];
     <span class="hljs-keyword">return</span> fetch(url);
 }</pre></div>
@@ -149,13 +150,21 @@ mimeType is only required for blob</p>
 This will trigger an event using the key as the type</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span><span class="hljs-params">(key, options)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">key, options</span>) </span>{
     <span class="hljs-keyword">var</span> url = options ? pattern.getValue(key, options) : key,
         dataCached = cacheData.cache[url];
 
     <span class="hljs-keyword">if</span>(dataCached) {
-        cacheData.ts = dataCached.ts = ts();
-        emitter.emit(key, dataCached);
+        cacheData.ts = dataCached.ts = ts();</pre></div>
+        
+      
+        
+        <p>Trigger the event after the return</p>
+
+        
+          <div class='highlight'><pre>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            emitter.emit(key, dataCached);
+        }, <span class="hljs-number">0</span>);
     } <span class="hljs-keyword">else</span> {</pre></div>
         
       
@@ -167,11 +176,9 @@ This will trigger an event using the key as the type</p>
             type = typeFnMime[<span class="hljs-number">0</span>],
             fn = typeFnMime[<span class="hljs-number">1</span>],
             mimeType = typeFnMime[<span class="hljs-number">2</span>],
-            callback = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, data)</span> </span>{
+            callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>{
                 <span class="hljs-keyword">if</span>(error) {
-                    <span class="hljs-built_in">console</span>.error(error);
                     emitter.emit(<span class="hljs-string">'error'</span>, error, { key: key, options: options, url: url, typeFnMime: typeFnMime});
-                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"=====&gt; error in callback"</span>);
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
                 }
 
@@ -223,7 +230,7 @@ This will trigger an event using the key as the type</p>
         <p>Free a fetched data</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">free</span><span class="hljs-params">(url)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">free</span>(<span class="hljs-params">url</span>) </span>{
     <span class="hljs-keyword">var</span> dataCached = cacheData.cache[url];
     <span class="hljs-keyword">if</span>(dataCached &amp;&amp; dataCached.url) {
         <span class="hljs-built_in">window</span>.URL.revokeObjectURL(dataCached.url);
@@ -239,7 +246,7 @@ This will trigger an event using the key as the type</p>
         <p>Get data in cache</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span><span class="hljs-params">(url, freeCache)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params">url, freeCache</span>) </span>{
     <span class="hljs-keyword">var</span> dataObj = cacheData.cache[url];
     <span class="hljs-keyword">if</span>(freeCache) {
         free(url);
@@ -252,12 +259,12 @@ This will trigger an event using the key as the type</p>
         <p>Empty cache</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clear</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> urlToDelete = [];
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> url <span class="hljs-keyword">in</span> cacheData.cache) {
         urlToDelete.push(url);
     }
-    
+
     <span class="hljs-keyword">var</span> count = urlToDelete.length;
     <span class="hljs-keyword">while</span>(count--) {
         free(urlToDelete[count]);
@@ -283,7 +290,7 @@ This will trigger an event using the key as the type</p>
         <p>Expose events api to the module as well</p>
 
         
-          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports.on = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event, listener)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, listener</span>) </span>{
     emitter.on(event, listener);
 };</pre></div>
         

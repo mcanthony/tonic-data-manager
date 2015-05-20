@@ -10,31 +10,32 @@
 <body>
 <header class="site-header">
 
-  <div class="wrapper">
-
-    <a class="site-title" href="/tonic-data-manager/">
-        <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
-        Tonic Data Manager
-    </a>
-
-    <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-
-      <div class="trigger">
-        <a class="page-link" href="/tonic-data-manager/">Home</a>
-        <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
-        <a class="page-link" href="/tonic-data-manager/news">News</a>
-        <a class="page-link" href="/tonic-data-manager/dev">Dev</a>
-      </div>
+    <nav class="mobile-nav show-on-mobiles">
+        <a class="page-link" href="/tonic-data-manager/"><i class="fa fa-home fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/docs/home"><i class="fa fa-book fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/news"><i class="fa fa-newspaper-o fa-fw fa-lg"></i></a>
     </nav>
+    <div class="wrapper">
 
-  </div>
+        <a class="site-title center-on-mobiles" href="/">
+            <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+            Tonic Data Manager
+        </a>
+        <nav class="site-nav hide-on-mobiles">
+            <a href="#" class="menu-icon">
+                <svg viewBox="0 0 18 15">
+                    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+                    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+                    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+                </svg>
+            </a>
+            <div class="trigger">
+                <a class="page-link" href="/tonic-data-manager/">Home</a>
+                <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+                <a class="page-link" href="/tonic-data-manager/news">News</a>
+            </div>
+        </nav>
+    </div>
 
 </header>
 
@@ -89,17 +90,17 @@
         <p>Generic request handler</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeRequest</span><span class="hljs-params">(url, handler)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeRequest</span>(<span class="hljs-params">url, handler</span>) </span>{
     <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
 
     xhr.open(<span class="hljs-string">'GET'</span>, url, <span class="hljs-literal">true</span>);
     xhr.responseType = handler.type;
 
-    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> </span>{
+    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
         <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === <span class="hljs-number">200</span>) {
             <span class="hljs-keyword">return</span> handler.fn(<span class="hljs-literal">null</span>, xhr);
         }
-        handler.fn(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(e), xhr);
+        handler.fn(e, xhr);
     };
     xhr.send();
 }</pre></div>
@@ -109,14 +110,14 @@
         <p>Array buffer handler</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arraybufferHandler</span><span class="hljs-params">(callback)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arraybufferHandler</span>(<span class="hljs-params">callback</span>) </span>{
     <span class="hljs-keyword">return</span> {
         type: <span class="hljs-string">'arraybuffer'</span>,
-        fn: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, xhrObject)</span> </span>{
+        fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, xhrObject</span>) </span>{
             <span class="hljs-keyword">if</span>(error) {
                 <span class="hljs-keyword">return</span> callback(error);
             }
-    
+
             <span class="hljs-keyword">var</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(xhrObject.response);
             callback(<span class="hljs-literal">null</span>, array);
         }
@@ -128,10 +129,10 @@
         <p>Text handler</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">textHandler</span><span class="hljs-params">(callback)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">textHandler</span>(<span class="hljs-params">callback</span>) </span>{
     <span class="hljs-keyword">return</span> {
         type: <span class="hljs-string">'text'</span>,
-        fn: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, xhrObject)</span> </span>{
+        fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, xhrObject</span>) </span>{
             <span class="hljs-keyword">if</span>(error) {
                 <span class="hljs-keyword">return</span> callback(error);
             }
@@ -145,10 +146,10 @@
         <p>JSON handler</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonHandler</span><span class="hljs-params">(callback)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonHandler</span>(<span class="hljs-params">callback</span>) </span>{
     <span class="hljs-keyword">return</span> {
         type: <span class="hljs-string">'text'</span>,
-        fn: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, xhrObject)</span> </span>{
+        fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, xhrObject</span>) </span>{
             <span class="hljs-keyword">if</span>(error) {
                 <span class="hljs-keyword">return</span> callback(error);
             }
@@ -162,14 +163,14 @@
         <p>Blob handler</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">blobHandler</span><span class="hljs-params">(mimeType, callback)</span> </span>{
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">blobHandler</span>(<span class="hljs-params">mimeType, callback</span>) </span>{
     <span class="hljs-keyword">return</span> {
         type: <span class="hljs-string">'blob'</span>,
-        fn: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, xhrObject)</span> </span>{
+        fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, xhrObject</span>) </span>{
             <span class="hljs-keyword">if</span>(error) {
                 <span class="hljs-keyword">return</span> callback(error);
             }
-    
+
             <span class="hljs-keyword">var</span> blob = <span class="hljs-keyword">new</span> Blob([xhrObject.response], {type: mimeType});
             callback(<span class="hljs-literal">null</span>, blob);
         }
@@ -182,19 +183,19 @@
 
         
           <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchJSON</span><span class="hljs-params">(url, callback)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchJSON</span>(<span class="hljs-params">url, callback</span>) </span>{
     makeRequest(url, jsonHandler(callback));
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTxt</span><span class="hljs-params">(url, callback)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTxt</span>(<span class="hljs-params">url, callback</span>) </span>{
     makeRequest(url, textHandler(callback));
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchBlob</span><span class="hljs-params">(url, mimeType, callback)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchBlob</span>(<span class="hljs-params">url, mimeType, callback</span>) </span>{
     makeRequest(url, blobHandler(mimeType, callback));
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchArray</span><span class="hljs-params">(url, callback)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchArray</span>(<span class="hljs-params">url, callback</span>) </span>{
     makeRequest(url, arraybufferHandler(callback));
 }</pre></div>
         
