@@ -9,13 +9,16 @@ module.exports = {
     "gitdir"    : "../../.git/modules/docs/www",
     "ctx"   : {
         "title": "Tonic Data Manager",
-        "email": "info@kitware.com",
+        "vision": "Automagic Data Retrieval",
         "description": "Data retrieval and management made easy",
+        "details": "",
+        "license": "BSD 3 Clause Open Source",
+        "company": "Kitware, Inc.",
+        "companyURL": "http://www.kitware.com",
         "baseurl" : "/tonic-data-manager",
         "url" : "",
-        "twitter_username": "kitware",
-        "github_username": "kitware",
-        "repository": "https://github.com/Kitware/tonic-data-manager",
-        "timezone": "America/Denver"
+        "repository": "Kitware/tonic-data-manager",
+        "timezone": "America/Denver",
+        "project": "tonic-data-manager"
     }
 };
