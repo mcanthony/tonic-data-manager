@@ -6,12 +6,14 @@ next_section: download_type
 permalink: /docs/pattern/
 ---
 
-Tonic Data Manager excel in pattern oriented requests. This guide will illustrate how to structure some code that will make repetitive request
+Tonic Data Manager excel in pattern oriented requests. This guide will illustrate
+how to structure some code that will make repetitive request
 to fetch a given set of data objects.
 
 ```
 // Optional if Bower or DropIn setup are used.
-var tonicDataManager = require('tonic-data-manager');
+var TonicDataManager = require('tonic-data-manager'),
+    tonicDataManager = new TonicDataManager();
 ```
 
 Let's register the types of requests we will be making
@@ -30,16 +32,16 @@ tonicDataManager.on('image', onImageAvailable);
 tonicDataManager.on('model', onDataAvailable);
 tonicDataManager.on('help', onHelpAvailable);
 // functions definition
-function onImageAvailable(error, cacheObject) {
+function onImageAvailable(data, envelope) {
     // Update image url to show the given one
-    $('.image-viewer').attr('src', cacheObject.url);
+    $('.image-viewer').attr('src', data.url);
 }
-function onDataAvailable(error, cacheObject) {
-    playImageStack(cacheObject.data);
+function onDataAvailable(data, envelope) {
+    playImageStack(data.data);
 }
-function onHelpAvailable(error, cacheObject) {
+function onHelpAvailable(data, envelope) {
     // Update the image description
-    $('.image-viewer-description').html(cacheObject.data);
+    $('.image-viewer-description').html(data.data);
 }
 ```
 

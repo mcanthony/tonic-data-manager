@@ -4,23 +4,24 @@ module.exports = function(config) {
     frameworks: [ 'jasmine' ],
     browsers: [
         'PhantomJS',
-        'Chrome', 
+        'Chrome',
         // 'ChromeCanary',
         'Safari',
         'Firefox',
         // 'IE',
-    ], 
+    ],
     files: [
         'https://raw.githubusercontent.com/peerlibrary/Blob.js/peerlibrary/Blob.js', // To fix blob issue with PhantomJS
-        'dist/tonic-data-manager.js',
+        'dist/TonicDataManager.js',
         'tests/*-browser-*.js',
-        'lib/tests/**/*.js'
+        'lib/tests/**/*.js',
+        { pattern: 'data/**', watched: false, included: false, served: true }
     ],
     exclude: [
         'lib/tests/**/*-node-only.js'
     ],
     proxies: {
-        '/data': 'http://localhost:3000'
+        '/data/': '/data/'
     }
   });
 };

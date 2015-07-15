@@ -2,28 +2,30 @@ var webpack = require('webpack');
 
 module.exports = {
   plugins: [],
-  entry: './lib/tonic-data-manager.js',
+  entry: './lib/TonicDataManager.js',
   output: {
     path: './dist',
-    filename: 'tonic-data-manager.js',   
+    filename: 'TonicDataManager.js',
   },
   module: {
     preLoaders: [
       {
-          test: /\.js$/, 
+          test: /\.js$/,
           exclude: /node_modules/,
-          loader: "jshint-loader"
+          loader: "jshint-loader!babel"
       }
     ],
     loaders: [
-        { 
-          test: require.resolve("./lib/tonic-data-manager.js"), 
-          loader: "expose?tonicDataManager"
-        },{
-          test: /\.js$/i,
-          loader: "strict-loader"
+        {
+          test: require.resolve("./lib/TonicDataManager.js"),
+          loader: "expose?TonicDataManager"
         }
     ]
+  },
+  jshint: {
+    esnext: true,
+    browser: true,
+    globalstrict: true // Babel add 'use strict'
   },
   externals: {
   }
