@@ -176,7 +176,7 @@
       <div class="unit five-sixths">
         <article>
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
           <h1>Type management</h1>
           <p>Tonic Data Manager handle various data type which may need different handling.
@@ -281,9 +281,9 @@ tonicDataManager.fetch(&#39;blob-data&#39;, { name: &#39;data&#39;, ext: &#39;da
 
 <p>The callback could be as following:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">function onArrayData(data, envelope) {
-    if(error) {
+    if(data.error) {
         // Something wrong happened
-        throw error;
+        throw data.error;
     }
     // Print additional cache meta data
     console.log(&quot; - Last read time: &quot; + data.ts);
@@ -503,8 +503,8 @@ tonicDataManager.fetch(&#39;image&#39;, { name: &#39;image&#39;});
     <div class="grid">
         <div class="unit whole">
             <div class="wrapper">
-                <p>&copy;&nbsp;2015 <a href=""></a> under the terms of the 
-                    <a href="https://github.com/Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
+                <p>&copy;&nbsp;2015 <a href="http://www.kitware.com">Kitware, Inc.</a> under the terms of the BSD 3 Clause Open Source
+                    <a href="Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
             </div>
         </div>
     </div>

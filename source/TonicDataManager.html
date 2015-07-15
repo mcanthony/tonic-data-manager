@@ -166,7 +166,7 @@ This will trigger an event using the key as the type</p>
             mimeType = typeFnMime[<span class="hljs-number">2</span>],
             callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>{
                 <span class="hljs-keyword">if</span>(error) {
-                    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, { error, data: { key: key, options: options, url: url, typeFnMime: typeFnMime}});
+                    <span class="hljs-keyword">this</span>.emit(key, { error, data: { key: key, options: options, url: url, typeFnMime: typeFnMime}});
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
                 }
 

@@ -176,7 +176,7 @@
       <div class="unit five-sixths">
         <article>
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/webpack.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/webpack.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
           <h1>Using webpack</h1>
           <h1>Get the library</h1>
@@ -225,6 +225,11 @@ function downloadAllImages(name, numberOfImages) {
     }
 
     function callback(data, envelope) {
+        if(data.error) {
+            // Got error
+            return;
+        }
+
         results.urls.push(data.url);
         results.remoteUrls.push(data.requestedURL);
         results.count++;
@@ -241,9 +246,6 @@ function downloadAllImages(name, numberOfImages) {
 
     // Attach internal callback
     dataManager.on(name, callback);
-    dataManager.on(&#39;error&#39;, function(data, envelope){
-        console.log(data.error);
-    });
 
     // Fetch the image list
     for(var index = 0; index &lt; numberOfImages; index++) {
@@ -481,8 +483,8 @@ have shortcut to build/bundle your application.</p>
     <div class="grid">
         <div class="unit whole">
             <div class="wrapper">
-                <p>&copy;&nbsp;2015 <a href=""></a> under the terms of the 
-                    <a href="https://github.com/Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
+                <p>&copy;&nbsp;2015 <a href="http://www.kitware.com">Kitware, Inc.</a> under the terms of the BSD 3 Clause Open Source
+                    <a href="Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
             </div>
         </div>
     </div>
