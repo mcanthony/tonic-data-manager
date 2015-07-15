@@ -139,9 +139,9 @@ The callback could be as following:
 
 ```
 function onArrayData(data, envelope) {
-    if(error) {
+    if(data.error) {
         // Something wrong happened
-        throw error;
+        throw data.error;
     }
     // Print additional cache meta data
     console.log(" - Last read time: " + data.ts);

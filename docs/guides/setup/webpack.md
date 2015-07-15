@@ -56,6 +56,11 @@ function downloadAllImages(name, numberOfImages) {
     }
 
     function callback(data, envelope) {
+        if(data.error) {
+            // Got error
+            return;
+        }
+
         results.urls.push(data.url);
         results.remoteUrls.push(data.requestedURL);
         results.count++;
@@ -72,9 +77,6 @@ function downloadAllImages(name, numberOfImages) {
 
     // Attach internal callback
     dataManager.on(name, callback);
-    dataManager.on('error', function(data, envelope){
-        console.log(data.error);
-    });
 
     // Fetch the image list
     for(var index = 0; index < numberOfImages; index++) {
