@@ -54,6 +54,13 @@
               
                 
                 <li>
+                  <a class="source" href="TonicDataManager.html">
+                    TonicDataManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
                   <a class="source" href="pattern.html">
                     pattern.js
                   </a>
@@ -73,13 +80,6 @@
                   </a>
                 </li>
               
-                
-                <li>
-                  <a class="source" href="tonic-data-manager.html">
-                    tonic-data-manager.js
-                  </a>
-                </li>
-              
             </ol>
           </div>
         
@@ -90,7 +90,8 @@
         <p>The goal of that module is to be able to register a set of String pattern
 and have a simple way to evaluate that pattern from an object.
 Here is an example on how the following module can be used.</p>
-<pre><code>m.registerPattern(<span class="hljs-string">'imagesURL'</span>, <span class="hljs-string">'{time}/{pressure}/{phi}_{theta}.png'</span>);
+<pre><code><span class="hljs-keyword">var</span> m = <span class="hljs-keyword">new</span> PatternMap();
+m.registerPattern(<span class="hljs-string">'imagesURL'</span>, <span class="hljs-string">'{time}/{pressure}/{phi}_{theta}.png'</span>);
 m.registerPattern(<span class="hljs-string">'jsonURL'</span>, <span class="hljs-string">'{time}/{pressure}/data.json'</span>);
 <span class="hljs-keyword">var</span> time = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
     pressure = [<span class="hljs-number">34</span>, <span class="hljs-number">35</span>, <span class="hljs-number">36</span>],
@@ -119,29 +120,27 @@ timeCount =  time.length;
 m.unregisterPattern(<span class="hljs-string">'imageURL'</span>);
 </code></pre>
         
-      
-        
-        <p>The Module keep its pattern internally within the following object.</p>
-
-        
-          <div class='highlight'><pre><span class="hljs-keyword">var</span> keyPatternMap = {};</pre></div>
+          <div class='highlight'><pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PatternMap</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.keyPatternMap = {};
+}</pre></div>
         
       
         
         <p>Register a pattern to a given key</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerPattern</span>(<span class="hljs-params">key, pattern</span>) </span>{
-    keyPatternMap[key] = pattern;
-}</pre></div>
+          <div class='highlight'><pre>PatternMap.prototype.registerPattern = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, pattern</span>) </span>{
+    <span class="hljs-keyword">this</span>.keyPatternMap[key] = pattern;
+};</pre></div>
         
       
         
         <p>Unregister a key</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregisterPattern</span>(<span class="hljs-params">key</span>) </span>{
-    <span class="hljs-keyword">delete</span> keyPatternMap[key];
+          <div class='highlight'><pre>PatternMap.prototype.unregisterPattern = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.keyPatternMap[key];
 }</pre></div>
         
       
@@ -149,8 +148,8 @@ m.unregisterPattern(<span class="hljs-string">'imageURL'</span>);
         <p>Evaluate the pattern base on its registered key and set of key to be replaced</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span>(<span class="hljs-params">key, options</span>) </span>{
-    <span class="hljs-keyword">var</span> result = keyPatternMap[key],
+          <div class='highlight'><pre>PatternMap.prototype.getValue = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, options</span>) </span>{
+    <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">this</span>.keyPatternMap[key],
         keyPattern = [<span class="hljs-string">'{'</span>, <span class="hljs-string">'}'</span>];
 
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> opt <span class="hljs-keyword">in</span> options) {
@@ -159,17 +158,6 @@ m.unregisterPattern(<span class="hljs-string">'imageURL'</span>);
 
     <span class="hljs-keyword">return</span> result;
 }</pre></div>
-        
-      
-        
-        <p>Export methods</p>
-
-        
-          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = {
-    registerPattern: registerPattern, 
-    unregisterPattern: unregisterPattern,
-    getValue: getValue
-};</pre></div>
         
       
     </div>

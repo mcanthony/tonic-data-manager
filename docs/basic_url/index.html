@@ -166,7 +166,7 @@
     
     <optgroup label="Developer guide">
       <option value="/tonic-data-manager/api/">API</option>
-      <option value="/tonic-data-manager/source/pattern.html">Source</option>
+      <option value="/tonic-data-manager/source/TonicDataManager.html">Source</option>
       <option value="/tonic-data-manager/dev/">Development</option>
     </optgroup>
   </select>
@@ -176,28 +176,29 @@
       <div class="unit five-sixths">
         <article>
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/olearypatrick/Development/tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/basic_url.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/basic_url.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
           <h1>Simple download</h1>
           <p>Tonic Data Manager let you download any kind of data remotely. It is optimized
 for repetitive remote data retrieval but can also be used for simple and one
 time URL request.</p>
 
-<p>The following code base illustrate how to fetch data using the <em>Tonic Data Manager library</em>. </p>
+<p>The following code base illustrate how to fetch data using the <em>Tonic Data Manager library</em>.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">// Optional if Bower or DropIn setup are used.
-var tonicDataManager = require(&#39;tonic-data-manager&#39;);
+var TonicDataManager = require(&#39;tonic-data-manager&#39;),
+    tonicDataManager = new TonicDataManager();
 //
 // Download url for JSON data
 var urlJSON = &#39;/data/myData.json&#39;;
 //
 // Attach data handler
-tonicDataManager.on(urlJSON, function(){
+tonicDataManager.on(urlJSON, function(data, envelope){
     // The second argument will free the internal cache
-    var myJsonObject = tonicDataManager.get(urlJSON, true).data; 
+    var myJsonObject = tonicDataManager.get(urlJSON, true).data; // = data.data;
     //
     // Do what you want with the JSON object
     // but be aware that because we free the resource
-    // any following get will be undefined.  
+    // any following get will be undefined.
 });
 //
 // Trigger the download urlJSON
@@ -354,7 +355,7 @@ tonicDataManager.fetchURL(urlJSON, &#39;json&#39;);
     <h4>Developer guide</h4>
     <ul>
       <li><a class="page-link" href="/tonic-data-manager/api/">API</a></li>
-      <li><a class="page-link" href="/tonic-data-manager/source/pattern.html">Source</a></li>
+      <li><a class="page-link" href="/tonic-data-manager/source/TonicDataManager.html">Source</a></li>
       <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
     </ul>
 
@@ -374,8 +375,8 @@ tonicDataManager.fetchURL(urlJSON, &#39;json&#39;);
     <div class="grid">
         <div class="unit whole">
             <div class="wrapper">
-                <p>&copy;&nbsp;2015 <a href="http://www.kitware.com">Kitware, Inc.</a> under the terms of the BSD 3 Clause Open Source
-                    <a href="Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
+                <p>&copy;&nbsp;2015 <a href=""></a> under the terms of the 
+                    <a href="https://github.com/Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
             </div>
         </div>
     </div>

@@ -166,7 +166,7 @@
     
     <optgroup label="Developer guide">
       <option value="/tonic-data-manager/api/">API</option>
-      <option value="/tonic-data-manager/source/pattern.html">Source</option>
+      <option value="/tonic-data-manager/source/TonicDataManager.html">Source</option>
       <option value="/tonic-data-manager/dev/">Development</option>
     </optgroup>
   </select>
@@ -176,11 +176,15 @@
       <div class="unit five-sixths">
         <article>
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/olearypatrick/Development/tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
           <h1>Type management</h1>
           <p>Tonic Data Manager handle various data type which may need different handling.
 This guide will go through all the possible types and how to interact with them.</p>
+
+<p>All listening is managed using <a href="https://www.npmjs.com/package/monologue.js">monolog.js</a>
+and is not be fully described here but can be used as described
+<a href="https://www.npmjs.com/package/monologue.js">here</a>.</p>
 
 <h2>JSON</h2>
 
@@ -195,18 +199,13 @@ This guide will go through all the possible types and how to interact with them.
 }
 </code></pre></div>
 <p>Let&#39;s define the callback function that we will be using for the JSON data handling.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">function onJsonData(error, cacheDataObject) {
-    if(error) {
-        // Something wrong happened
-        throw error;
-    }
-    //
-    var jsonObj = cacheDataObject.data;
+<div class="highlight"><pre><code class="language-text" data-lang="text">function onJsonData(data, envelope) {
+    var jsonObj = data.data;
     //
     // Print additional cache meta data
-    console.log(&quot; - Last read time: &quot; + cacheDataObject.ts);
-    console.log(&quot; - Data Type: &quot; + cacheDataObject.type);
-    console.log(&quot; - Requested URL: &quot; + cacheDataObject.requestedURL);
+    console.log(&quot; - Last read time: &quot; + data.ts);
+    console.log(&quot; - Data Type: &quot; + data.type);
+    console.log(&quot; - Requested URL: &quot; + data.requestedURL);
     //
     // Access data from JSON object
     console.log(&quot; - str: &quot; + jsonObj.str);
@@ -231,17 +230,13 @@ tonicDataManager.fetch(&#39;jsonDataModel&#39;, { name: &#39;info&#39;});
 <p><code>&lt;p&gt;Hello world&lt;/p&gt;</code></p>
 
 <p>Let&#39;s define the callback function that we will be using for the Text data handling.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">function onTxtData(error, cacheDataObject) {
-    if(error) {
-        // Something wrong happened
-        throw error;
-    }
+<div class="highlight"><pre><code class="language-text" data-lang="text">function onTxtData(data, envelope) {
     // Print additional cache meta data
-    console.log(&quot; - Last read time: &quot; + cacheDataObject.ts);
-    console.log(&quot; - Data Type: &quot; + cacheDataObject.type);
-    console.log(&quot; - Requested URL: &quot; + cacheDataObject.requestedURL);
+    console.log(&quot; - Last read time: &quot; + data.ts);
+    console.log(&quot; - Data Type: &quot; + data.type);
+    console.log(&quot; - Requested URL: &quot; + data.requestedURL);
     // Replace content inside your DOM
-    var strHTML = cacheDataObject.data;
+    var strHTML = data.data;
     $(&#39;.help&#39;).html(strHTML);
 }
 </code></pre></div>
@@ -260,14 +255,14 @@ tonicDataManager.fetch(&#39;help-template&#39;, { name: &#39;text&#39;, ext: &#3
 <p>Binary large object can be of any type, but require a mime type to properly work.</p>
 
 <p>Here is an example on how a blob data object can be used via a callback.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">function onBlobData(error, cacheDataObject) {
-    var blob = cacheDataObject.data;
+<div class="highlight"><pre><code class="language-text" data-lang="text">function onBlobData(data, envelope) {
+    var blob = data.data;
     // Print additional cache meta data
-    console.log(&quot; - Last read time: &quot; + cacheDataObject.ts);
-    console.log(&quot; - Data Type: &quot; + cacheDataObject.type);
-    console.log(&quot; - Requested URL: &quot; + cacheDataObject.requestedURL);
+    console.log(&quot; - Last read time: &quot; + data.ts);
+    console.log(&quot; - Data Type: &quot; + data.type);
+    console.log(&quot; - Requested URL: &quot; + data.requestedURL);
     // The URL let you provide a link to the blob
-    console.log(&quot; - Usable URL: &quot; + cacheDataObject.url);
+    console.log(&quot; - Usable URL: &quot; + data.url);
 }
 </code></pre></div>
 <h3>URL based</h3>
@@ -285,17 +280,17 @@ tonicDataManager.fetch(&#39;blob-data&#39;, { name: &#39;data&#39;, ext: &#39;da
 <p>Array buffer is actually a Uint8Array array type.</p>
 
 <p>The callback could be as following:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">function onArrayData(error, cacheDataObject) {
+<div class="highlight"><pre><code class="language-text" data-lang="text">function onArrayData(data, envelope) {
     if(error) {
         // Something wrong happened
         throw error;
     }
     // Print additional cache meta data
-    console.log(&quot; - Last read time: &quot; + cacheDataObject.ts);
-    console.log(&quot; - Data Type: &quot; + cacheDataObject.type);
-    console.log(&quot; - Requested URL: &quot; + cacheDataObject.requestedURL);
+    console.log(&quot; - Last read time: &quot; + data.ts);
+    console.log(&quot; - Data Type: &quot; + data.type);
+    console.log(&quot; - Requested URL: &quot; + data.requestedURL);
     // Replace content inside your DOM
-    var Uint8ArrayObj = cacheDataObject.data;
+    var Uint8ArrayObj = data.data;
     // [...]
 }
 </code></pre></div>
@@ -311,19 +306,19 @@ tonicDataManager.fetch(&#39;array-buffer&#39;, { name: &#39;data&#39;, ext: &#39
 </code></pre></div>
 <h2>Images</h2>
 
-<p>Images are nothing more than a blob. So if you want to download images and 
+<p>Images are nothing more than a blob. So if you want to download images and
 use them inside your DOM, you can do so with the following callback and similar
 request as the standard blob call.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">function onImage(error, cacheDataObject) {
-    var blob = cacheDataObject.data;
+<div class="highlight"><pre><code class="language-text" data-lang="text">function onImage(data, envelope) {
+    var blob = data.data;
     // Print additional cache meta data
-    console.log(&quot; - Last read time: &quot; + cacheDataObject.ts);
-    console.log(&quot; - Data Type: &quot; + cacheDataObject.type);
-    console.log(&quot; - Requested URL: &quot; + cacheDataObject.requestedURL);
+    console.log(&quot; - Last read time: &quot; + data.ts);
+    console.log(&quot; - Data Type: &quot; + data.type);
+    console.log(&quot; - Requested URL: &quot; + data.requestedURL);
     // The URL let you provide a link to the blob
-    console.log(&quot; - Usable URL: &quot; + cacheDataObject.url);
+    console.log(&quot; - Usable URL: &quot; + data.url);
     // Update the image in the DOM
-    $(&#39;.image-to-refresh&#39;).attr(&#39;src&#39;, cacheDataObject.url);
+    $(&#39;.image-to-refresh&#39;).attr(&#39;src&#39;, data.url);
 }
 </code></pre></div>
 <p>The only thing that you need to make sure is that the mime type is the proper
@@ -488,7 +483,7 @@ tonicDataManager.fetch(&#39;image&#39;, { name: &#39;image&#39;});
     <h4>Developer guide</h4>
     <ul>
       <li><a class="page-link" href="/tonic-data-manager/api/">API</a></li>
-      <li><a class="page-link" href="/tonic-data-manager/source/pattern.html">Source</a></li>
+      <li><a class="page-link" href="/tonic-data-manager/source/TonicDataManager.html">Source</a></li>
       <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
     </ul>
 
@@ -508,8 +503,8 @@ tonicDataManager.fetch(&#39;image&#39;, { name: &#39;image&#39;});
     <div class="grid">
         <div class="unit whole">
             <div class="wrapper">
-                <p>&copy;&nbsp;2015 <a href="http://www.kitware.com">Kitware, Inc.</a> under the terms of the BSD 3 Clause Open Source
-                    <a href="Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
+                <p>&copy;&nbsp;2015 <a href=""></a> under the terms of the 
+                    <a href="https://github.com/Kitware/tonic-data-manager/blob/master/LICENSE">License</a>.</p>
             </div>
         </div>
     </div>

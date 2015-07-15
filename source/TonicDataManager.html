@@ -44,13 +44,20 @@
 
       <div class="header">
         
-          <h1>tonic-data-manager.js</h1>
+          <h1>TonicDataManager.js</h1>
         
 
         
           <div class="toc">
             <h3>Table of Contents</h3>
             <ol>
+              
+                
+                <li>
+                  <a class="source" href="TonicDataManager.html">
+                    TonicDataManager.js
+                  </a>
+                </li>
               
                 
                 <li>
@@ -73,13 +80,6 @@
                   </a>
                 </li>
               
-                
-                <li>
-                  <a class="source" href="tonic-data-manager.html">
-                    tonic-data-manager.js
-                  </a>
-                </li>
-              
             </ol>
           </div>
         
@@ -87,19 +87,12 @@
 
       
         
-        <p>Keep around fetched data</p>
+        <p>Module dependencies and constants</p>
 
         
           <div class='highlight'><pre><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./request.js'</span>),
-    pattern = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./pattern.js'</span>),
-    EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-event-emitter'</span>).EventEmitter,
-    emitter = <span class="hljs-keyword">new</span> EventEmitter(),
-    cacheData = {
-        cache: {},
-        modified: <span class="hljs-number">0</span>,
-        ts: <span class="hljs-number">0</span>
-    },
-    keyToTypeMap = {},
+    PatternMap = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./pattern.js'</span>),
+    Monologue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monologue.js'</span>),
     typeFnMap = {
         json:  request.fetchJSON,
         text:  request.fetchTxt,
@@ -118,31 +111,25 @@
         
       
         
-        <p>Register a key/pattern for future use
-Type can only be [‘json’, ‘text’, ‘blob’, ‘array’]
-mimeType is only required for blob</p>
+        <p>TonicDataManager definition</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerURL</span>(<span class="hljs-params">key, filePattern, type, mimeType</span>) </span>{
-    pattern.registerPattern(key, filePattern);
-    keyToTypeMap[key] = [type, typeFnMap[type], mimeType];
+          <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TonicDataManager</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.pattern = <span class="hljs-keyword">new</span> PatternMap();
+    <span class="hljs-keyword">this</span>.keyToTypeMap = {};
+    <span class="hljs-keyword">this</span>.cacheData = {
+        cache: {},
+        modified: <span class="hljs-number">0</span>,
+        ts: <span class="hljs-number">0</span>
+    };
 }</pre></div>
         
       
         
-        <p>Free previously registered URL</p>
+        <p>Add Observer pattern to TonicDataManager using Monologue.js</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregisterURL</span>(<span class="hljs-params">key</span>) </span>{
-    pattern.unregisterPattern(key);
-    <span class="hljs-keyword">delete</span> keyToTypeMap[key];
-    emitter.removeAllListeners(key);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchURL</span>(<span class="hljs-params">url, type, mimeType</span>) </span>{
-    keyToTypeMap[url] = [type, typeFnMap[type], mimeType];
-    <span class="hljs-keyword">return</span> fetch(url);
-}</pre></div>
+          <div class='highlight'><pre>Monologue.mixInto(TonicDataManager);</pre></div>
         
       
         
@@ -150,12 +137,12 @@ mimeType is only required for blob</p>
 This will trigger an event using the key as the type</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">key, options</span>) </span>{
-    <span class="hljs-keyword">var</span> url = options ? pattern.getValue(key, options) : key,
-        dataCached = cacheData.cache[url];
+          <div class='highlight'><pre>TonicDataManager.prototype.fetch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, options</span>) </span>{
+    <span class="hljs-keyword">var</span> url = options ? <span class="hljs-keyword">this</span>.pattern.getValue(key, options) : key,
+        dataCached = <span class="hljs-keyword">this</span>.cacheData.cache[url];
 
     <span class="hljs-keyword">if</span>(dataCached) {
-        cacheData.ts = dataCached.ts = ts();</pre></div>
+        <span class="hljs-keyword">this</span>.cacheData.ts = dataCached.ts = ts();</pre></div>
         
       
         
@@ -163,7 +150,7 @@ This will trigger an event using the key as the type</p>
 
         
           <div class='highlight'><pre>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-            emitter.emit(key, dataCached);
+            <span class="hljs-keyword">this</span>.emit(key, dataCached);
         }, <span class="hljs-number">0</span>);
     } <span class="hljs-keyword">else</span> {</pre></div>
         
@@ -172,13 +159,14 @@ This will trigger an event using the key as the type</p>
         <p>Need to fetch the data on the web</p>
 
         
-          <div class='highlight'><pre>        <span class="hljs-keyword">var</span> typeFnMime = keyToTypeMap[key],
+          <div class='highlight'><pre>        <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>,
+            typeFnMime = <span class="hljs-keyword">this</span>.keyToTypeMap[key],
             type = typeFnMime[<span class="hljs-number">0</span>],
             fn = typeFnMime[<span class="hljs-number">1</span>],
             mimeType = typeFnMime[<span class="hljs-number">2</span>],
             callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>{
                 <span class="hljs-keyword">if</span>(error) {
-                    emitter.emit(<span class="hljs-string">'error'</span>, error, { key: key, options: options, url: url, typeFnMime: typeFnMime});
+                    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, { error, data: { key: key, options: options, url: url, typeFnMime: typeFnMime}});
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
                 }
 
@@ -202,21 +190,21 @@ This will trigger an event using the key as the type</p>
         <p>Update ts</p>
 
         
-          <div class='highlight'><pre>                cacheData.modified = cacheData.ts = dataCached.ts = ts();</pre></div>
+          <div class='highlight'><pre>                self.cacheData.modified = self.cacheData.ts = dataCached.ts = ts();</pre></div>
         
       
         
         <p>Store it in the cache</p>
 
         
-          <div class='highlight'><pre>                cacheData.cache[url] = dataCached;</pre></div>
+          <div class='highlight'><pre>                self.cacheData.cache[url] = dataCached;</pre></div>
         
       
         
         <p>Trigger the event</p>
 
         
-          <div class='highlight'><pre>                emitter.emit(key, dataCached);
+          <div class='highlight'><pre>                self.emit(key, dataCached);
             };
 
         fn(url, mimeType ? mimeType : callback, callback);
@@ -227,18 +215,12 @@ This will trigger an event using the key as the type</p>
         
       
         
-        <p>Free a fetched data</p>
+        <p>Fetch data from URL</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">free</span>(<span class="hljs-params">url</span>) </span>{
-    <span class="hljs-keyword">var</span> dataCached = cacheData.cache[url];
-    <span class="hljs-keyword">if</span>(dataCached &amp;&amp; dataCached.url) {
-        <span class="hljs-built_in">window</span>.URL.revokeObjectURL(dataCached.url);
-        <span class="hljs-keyword">delete</span> dataCached.url;
-    }
-
-    <span class="hljs-keyword">delete</span> cacheData.cache[url];
-    emitter.removeAllListeners(url);
+          <div class='highlight'><pre>TonicDataManager.prototype.fetchURL = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, type, mimeType</span>) </span>{
+    <span class="hljs-keyword">this</span>.keyToTypeMap[url] = [type, typeFnMap[type], mimeType];
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.fetch(url);
 }</pre></div>
         
       
@@ -246,12 +228,51 @@ This will trigger an event using the key as the type</p>
         <p>Get data in cache</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params">url, freeCache</span>) </span>{
-    <span class="hljs-keyword">var</span> dataObj = cacheData.cache[url];
+          <div class='highlight'><pre>TonicDataManager.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url, freeCache</span>) </span>{
+    <span class="hljs-keyword">var</span> dataObj = <span class="hljs-keyword">this</span>.cacheData.cache[url];
     <span class="hljs-keyword">if</span>(freeCache) {
-        free(url);
+        <span class="hljs-keyword">this</span>.free(url);
     }
     <span class="hljs-keyword">return</span> dataObj;
+}</pre></div>
+        
+      
+        
+        <p>Free a fetched data</p>
+
+        
+          <div class='highlight'><pre>TonicDataManager.prototype.free = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{
+    <span class="hljs-keyword">var</span> dataCached = <span class="hljs-keyword">this</span>.cacheData.cache[url];
+    <span class="hljs-keyword">if</span>(dataCached &amp;&amp; dataCached.url) {
+        <span class="hljs-built_in">window</span>.URL.revokeObjectURL(dataCached.url);
+        <span class="hljs-keyword">delete</span> dataCached.url;
+    }
+
+    <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.cacheData.cache[url];
+    <span class="hljs-keyword">this</span>.off(url);
+}</pre></div>
+        
+      
+        
+        <p>Register a key/pattern for future use
+Type can only be [‘json’, ‘text’, ‘blob’, ‘array’]
+mimeType is only required for blob</p>
+
+        
+          <div class='highlight'><pre>TonicDataManager.prototype.registerURL = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, filePattern, type, mimeType</span>) </span>{
+    <span class="hljs-keyword">this</span>.pattern.registerPattern(key, filePattern);
+    <span class="hljs-keyword">this</span>.keyToTypeMap[key] = [type, typeFnMap[type], mimeType];
+}</pre></div>
+        
+      
+        
+        <p>Free previously registered URL</p>
+
+        
+          <div class='highlight'><pre>TonicDataManager.prototype.unregisterURL = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">this</span>.pattern.unregisterPattern(key);
+    <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.keyToTypeMap[key];
+    <span class="hljs-keyword">this</span>.off(key);
 }</pre></div>
         
       
@@ -259,40 +280,17 @@ This will trigger an event using the key as the type</p>
         <p>Empty cache</p>
 
         
-          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clear</span>(<span class="hljs-params"></span>) </span>{
+          <div class='highlight'><pre>TonicDataManager.prototype.clear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> urlToDelete = [];
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> url <span class="hljs-keyword">in</span> cacheData.cache) {
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> url <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.cacheData.cache) {
         urlToDelete.push(url);
     }
 
     <span class="hljs-keyword">var</span> count = urlToDelete.length;
     <span class="hljs-keyword">while</span>(count--) {
-        free(urlToDelete[count]);
+        <span class="hljs-keyword">this</span>.free(urlToDelete[count]);
     }
 }</pre></div>
-        
-      
-        
-        <p>Expose public methods</p>
-
-        
-          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = fetch;
-<span class="hljs-built_in">module</span>.exports.fetchURL = fetchURL;
-<span class="hljs-built_in">module</span>.exports.get = get;
-<span class="hljs-built_in">module</span>.exports.free = free;
-<span class="hljs-built_in">module</span>.exports.registerURL = registerURL;
-<span class="hljs-built_in">module</span>.exports.unregisterURL = unregisterURL;
-<span class="hljs-built_in">module</span>.exports.fetch = fetch;
-<span class="hljs-built_in">module</span>.exports.clear = clear;</pre></div>
-        
-      
-        
-        <p>Expose events api to the module as well</p>
-
-        
-          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, listener</span>) </span>{
-    emitter.on(event, listener);
-};</pre></div>
         
       
     </div>
