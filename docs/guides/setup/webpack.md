@@ -14,13 +14,13 @@ group.
 
 ```
 "dependencies": {
-    "node-event-emitter": "latest",
     "tonic-data-manager": "latest",
+    "monologue.js": "^0.3.3",
     [...]
 }
 ```
 
-> Adding the _node-event-emitter_ here at the root of your project will prevent
+> Adding the _monologue.js_ here at the root of your project will prevent
 > Webpack to encapsulate several versions of it if used across other internal
 > dependencies.
 
@@ -31,7 +31,8 @@ like regular CommonJS module injection.
 
 
 ```
-var dataManager = require("tonic-data-manager"),
+var TonicDataManager = require("tonic-data-manager"),
+    dataManager = new TonicDataManager(),
     basePattern = "/data/images/{name}/{index}.png",
     readyCallback = {};
 
@@ -41,7 +42,7 @@ function downloadAllImages(name, numberOfImages) {
             "remoteUrls": [],
             "count": 0,
             "free": freeResources
-        }, 
+        },
         options = {
             "name": name,
             "index": 0
@@ -54,13 +55,9 @@ function downloadAllImages(name, numberOfImages) {
         }
     }
 
-    function callback(error, dataObject) {
-        if(error) {
-            return console.error(error);
-        }
-
-        results.urls.push(dataObject.url);
-        results.remoteUrls.push(dataObject.requestedURL);
+    function callback(data, envelope) {
+        results.urls.push(data.url);
+        results.remoteUrls.push(data.requestedURL);
         results.count++;
 
         if(results.count === numberOfImages) {
@@ -75,6 +72,9 @@ function downloadAllImages(name, numberOfImages) {
 
     // Attach internal callback
     dataManager.on(name, callback);
+    dataManager.on('error', function(data, envelope){
+        console.log(data.error);
+    });
 
     // Fetch the image list
     for(var index = 0; index < numberOfImages; index++) {
@@ -102,7 +102,7 @@ Webpack go through your application dependencies and bundle them within
 JavaScript file(s) so they can be used within web pages.
 
 For Webpack to work, you need to provide the entry point of your application
-and describe in a configuration file how package should be resolved. 
+and describe in a configuration file how package should be resolved.
 This is specially useful when you are not only requiring JavaScript file but CSS,
 Stylus, Jade, Coffee or any other format that may need pre-processing.
 
@@ -117,28 +117,27 @@ module.exports = {
   entry: './lib/YOUR_APPLICATION_ENTRY_POINT.js',
   output: {
     path: './dist',
-    filename: 'BUNDLE_NAME.js',   
+    filename: 'BUNDLE_NAME.js',
   },
   module: {
     preLoaders: [
       {
-          test: /\.js$/, 
+          test: /\.js$/,
           exclude: /node_modules/,
-          loader: "jshint-loader" // This will validate your code at bundle time
+          loader: "jshint-loader!babel" // This will validate your code at bundle time and handle ES6/7
       }
-    ],
-    loaders: [
-        {
-          test: /\.js$/i,
-          loader: "strict-loader" // This will automatically add "use strict" on top of your code.
-        }
     ]
-  }
+  },
+  jshint: {
+    esnext: true,
+    browser: true,
+    globalstrict: true // Babel add 'use strict'
+  },
 };
 
 ```
 
-And by extending the _scripts_ section of your _package.json_ file you can 
+And by extending the _scripts_ section of your _package.json_ file you can
 have shortcut to build/bundle your application.
 
 Here is the set of commands that we tend to use in _Tonic_ components:
