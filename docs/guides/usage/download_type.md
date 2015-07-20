@@ -3,12 +3,13 @@ layout: docs
 title: Type management
 prev_section: pattern
 permalink: /docs/download_type/
+repo_path: /docs/guides/usage/download_type.md
 ---
 
 Tonic Data Manager handle various data type which may need different handling.
 This guide will go through all the possible types and how to interact with them.
 
-All listening is managed using [monolog.js](https://www.npmjs.com/package/monologue.js)
+All listening is managed using [monologue.js](https://www.npmjs.com/package/monologue.js)
 and is not be fully described here but can be used as described
 [here](https://www.npmjs.com/package/monologue.js).
 
@@ -32,12 +33,12 @@ Let's define the callback function that we will be using for the JSON data handl
 ```
 function onJsonData(data, envelope) {
     var jsonObj = data.data;
-    //
+
     // Print additional cache meta data
     console.log(" - Last read time: " + data.ts);
     console.log(" - Data Type: " + data.type);
     console.log(" - Requested URL: " + data.requestedURL);
-    //
+
     // Access data from JSON object
     console.log(" - str: " + jsonObj.str);
     console.log(" - array: " + jsonObj.array);

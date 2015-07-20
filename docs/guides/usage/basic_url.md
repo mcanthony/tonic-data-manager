@@ -4,6 +4,7 @@ title: Simple download
 prev_section: webpack
 next_section: pattern
 permalink: /docs/basic_url/
+repo_path: /docs/guides/usage/basic_url.md
 ---
 
 Tonic Data Manager let you download any kind of data remotely. It is optimized

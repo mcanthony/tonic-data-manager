@@ -4,6 +4,7 @@ title: Pattern based
 prev_section: basic_url
 next_section: download_type
 permalink: /docs/pattern/
+repo_path: /docs/guides/usage/pattern_usage.md
 ---
 
 Tonic Data Manager excel in pattern oriented requests. This guide will illustrate
@@ -11,9 +12,12 @@ how to structure some code that will make repetitive request
 to fetch a given set of data objects.
 
 ```
-// Optional if Bower or DropIn setup are used.
+// Using CommonJS
 var TonicDataManager = require('tonic-data-manager'),
     tonicDataManager = new TonicDataManager();
+
+// Using DropIn
+var tonicDataManager = new TonicDataManager();
 ```
 
 Let's register the types of requests we will be making

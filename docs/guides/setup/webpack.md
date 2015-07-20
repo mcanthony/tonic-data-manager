@@ -4,6 +4,7 @@ title: Using webpack
 prev_section: home
 next_section: basic_url
 permalink: /docs/webpack/
+repo_path: /docs/guides/setup/webpack.md
 ---
 
 # Get the library
@@ -14,7 +15,7 @@ group.
 
 ```
 "dependencies": {
-    "tonic-data-manager": "latest",
+    "tonic-data-manager": "^0.0.4",
     "monologue.js": "^0.3.3",
     [...]
 }
