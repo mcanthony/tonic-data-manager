@@ -41,29 +41,37 @@ layout: default
     </section>
    <div class="grid">
         <div class="unit whole">
+
         <h2>Getting Started</h2>
-        <p>{{ site.project }} can be retrieved using npm.</p>
+        <p>{{ site.project }} can be retrieved using npm within your web project.</p>
+
         <h2>npm</h2>
 {% highlight bash %}
-~ $ npm install -g {{ site.project }}
+~ $ npm install {{ site.project }} --save
 {% endhighlight %}
-            <h2>Quick-start</h2>
-            For the impatient, here's how to get boilerplate {{ site.project }} up and running.
+
+        <h2>Quick-start</h2>
+        For the impatient, here's how to get boilerplate {{ site.project }} up and running.
+
 {% highlight bash %}
 ~ $ git clone git@github.com:{{site.repository}}.git
 ~ $ cd {{site.project}}
 ~/{{site.project}} $ npm install
 ~/{{site.project}} $ npm test
 {% endhighlight %}
+
         <h2>Documentation</h2>
         <p>See the <a href="{{ site.baseurl }}">documentation</a> for a getting started guide, advanced documentation,
         and API descriptions.</p>
+
         <h2>Licensing</h2>
         <p>{{ site.title }} is licensed under {{ site.license }}
         <a href="https://github.com/{{ site.repository }}/blob/master/LICENSE">License</a>.</p>
+
         <h2>Getting Involved</h2>
         <p>Fork the {{ site.project }} repository and do great things. At <a href="{{ site.companyURL }}">
         {{ site.company }}</a>, we want to make {{ site.project }} useful to as many people as possible.
+
         </div>
     </div>
 </div>
