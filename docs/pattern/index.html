@@ -165,9 +165,9 @@
     </optgroup>
     
     <optgroup label="Developer guide">
+      <option value="/tonic-data-manager/dev/">Development</option>
       <option value="/tonic-data-manager/api/">API</option>
       <option value="/tonic-data-manager/source/TonicDataManager.html">Source</option>
-      <option value="/tonic-data-manager/dev/">Development</option>
     </optgroup>
   </select>
 </div>
@@ -175,16 +175,21 @@
 
       <div class="unit five-sixths">
         <article>
+            
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/pattern_usage.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/Kitware/tonic-data-manager/edit/master/docs/guides/usage/pattern_usage.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
+            
           <h1>Pattern based</h1>
           <p>Tonic Data Manager excel in pattern oriented requests. This guide will illustrate
 how to structure some code that will make repetitive request
 to fetch a given set of data objects.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// Optional if Bower or DropIn setup are used.
+<div class="highlight"><pre><code class="language-text" data-lang="text">// Using CommonJS
 var TonicDataManager = require(&#39;tonic-data-manager&#39;),
     tonicDataManager = new TonicDataManager();
+
+// Using DropIn
+var tonicDataManager = new TonicDataManager();
 </code></pre></div>
 <p>Let&#39;s register the types of requests we will be making</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">// Data url pattern registering
@@ -381,11 +386,10 @@ function playImageStack(idList) {
     
     <h4>Developer guide</h4>
     <ul>
+      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
       <li><a class="page-link" href="/tonic-data-manager/api/">API</a></li>
       <li><a class="page-link" href="/tonic-data-manager/source/TonicDataManager.html">Source</a></li>
-      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
     </ul>
-
   </aside>
 </div>
 

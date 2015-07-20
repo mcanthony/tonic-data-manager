@@ -149,7 +149,7 @@ This will trigger an event using the key as the type</p>
         <p>Trigger the event after the return</p>
 
         
-          <div class='highlight'><pre>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          <div class='highlight'><pre>        setTimeout( () =&gt; {
             <span class="hljs-keyword">this</span>.emit(key, dataCached);
         }, <span class="hljs-number">0</span>);
     } <span class="hljs-keyword">else</span> {</pre></div>

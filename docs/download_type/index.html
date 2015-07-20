@@ -165,9 +165,9 @@
     </optgroup>
     
     <optgroup label="Developer guide">
+      <option value="/tonic-data-manager/dev/">Development</option>
       <option value="/tonic-data-manager/api/">API</option>
       <option value="/tonic-data-manager/source/TonicDataManager.html">Source</option>
-      <option value="/tonic-data-manager/dev/">Development</option>
     </optgroup>
   </select>
 </div>
@@ -175,14 +175,16 @@
 
       <div class="unit five-sixths">
         <article>
+            
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/Kitware/tonic-data-manager/edit/master/docs/guides/usage/download_type.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
+            
           <h1>Type management</h1>
           <p>Tonic Data Manager handle various data type which may need different handling.
 This guide will go through all the possible types and how to interact with them.</p>
 
-<p>All listening is managed using <a href="https://www.npmjs.com/package/monologue.js">monolog.js</a>
+<p>All listening is managed using <a href="https://www.npmjs.com/package/monologue.js">monologue.js</a>
 and is not be fully described here but can be used as described
 <a href="https://www.npmjs.com/package/monologue.js">here</a>.</p>
 
@@ -201,12 +203,12 @@ and is not be fully described here but can be used as described
 <p>Let&#39;s define the callback function that we will be using for the JSON data handling.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">function onJsonData(data, envelope) {
     var jsonObj = data.data;
-    //
+
     // Print additional cache meta data
     console.log(&quot; - Last read time: &quot; + data.ts);
     console.log(&quot; - Data Type: &quot; + data.type);
     console.log(&quot; - Requested URL: &quot; + data.requestedURL);
-    //
+
     // Access data from JSON object
     console.log(&quot; - str: &quot; + jsonObj.str);
     console.log(&quot; - array: &quot; + jsonObj.array);
@@ -482,11 +484,10 @@ tonicDataManager.fetch(&#39;image&#39;, { name: &#39;image&#39;});
     
     <h4>Developer guide</h4>
     <ul>
+      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
       <li><a class="page-link" href="/tonic-data-manager/api/">API</a></li>
       <li><a class="page-link" href="/tonic-data-manager/source/TonicDataManager.html">Source</a></li>
-      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
     </ul>
-
   </aside>
 </div>
 

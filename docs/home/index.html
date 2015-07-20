@@ -165,9 +165,9 @@
     </optgroup>
     
     <optgroup label="Developer guide">
+      <option value="/tonic-data-manager/dev/">Development</option>
       <option value="/tonic-data-manager/api/">API</option>
       <option value="/tonic-data-manager/source/TonicDataManager.html">Source</option>
-      <option value="/tonic-data-manager/dev/">Development</option>
     </optgroup>
   </select>
 </div>
@@ -175,24 +175,26 @@
 
       <div class="unit five-sixths">
         <article>
+            
             <div class="improve right hide-on-mobiles">
-                <a href="https://github.com/Kitware/tonic-data-manageredit/master//Users/seb/Work/code/Tonic/tonic-utils/tonic-data-manager/docs/www/tmp/_docs/installation.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                <a href="https://github.com/Kitware/tonic-data-manager/edit/master/docs/guides/setup/installation.md"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
             </div>
+            
           <h1>Setup</h1>
           <p>Tonic Data Manager is a library that is meant to be easily integrated into
-your environment. For that we provide three way of integration.</p>
+your environment. For that we provide two ways of integration.</p>
 
 <h2>npm dependency</h2>
 
 <p>Our preferred integration path is through npm using <em>require</em> within your
 code and relying on <em>WebPack</em> or <em>Browserify</em> to package all your code
 dependency into a single or multiple JavaScript files that are dedicated
-for your application.</p>
+to your application.</p>
 
-<p>Tonic Data Manager can be added to your package.json with the following 
+<p>Tonic Data Manager can be added to your package.json with the following
 configuration subset.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">&quot;dependencies&quot;: {
-    &quot;tonic-data-manager&quot;: &quot;latest&quot;
+    &quot;tonic-data-manager&quot;: &quot;0.0.4&quot;
 }
 </code></pre></div>
 <p>or if you want the latest code base that has not been publish yet to the npm
@@ -203,25 +205,12 @@ registry.</p>
 </code></pre></div>
 <p>To read more on how to use the library within your code and how to
 configure <em>WebPack</em> to package your application with all its
-dependency. You can refer to the 
+dependency. You can refer to the
 <strong><em><a href="/docs/webpack">WebPack documentation guide</a></em></strong>.</p>
-
-<h2>Bower dependency</h2>
-
-<p>On top of a <em>npm</em> module, we also generate a packaged version of the 
-<strong>Tonic Data Manager</strong> library that can be used as a standalone file.
-This file can be retrieved using <em>bower</em>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">bower file config snippet
-FIXME 
-=&gt; Need to register
-=&gt; Need to show bower dependency snippet
-</code></pre></div>
-<p>This will extend the global namespace with a <strong><em>tonicDataManager</em></strong> which
-provides the same API as the <strong><em>Tonic Data Manager</em></strong> module.</p>
 
 <h2>Drop in</h2>
 
-<p>You can download manually our packaged version <strong><em><a href="https://raw.githubusercontent.com/Kitware/tonic-data-manager/master/dist/tonic-data-manager.js">here</a></em></strong> for an
+<p>You can download manually our packaged version <strong><em><a href="https://raw.githubusercontent.com/Kitware/tonic-data-manager/master/dist/TonicDataManager.js">here</a></em></strong> for an
 integration into your code base.</p>
 
           <div class="section-nav">
@@ -372,11 +361,10 @@ integration into your code base.</p>
     
     <h4>Developer guide</h4>
     <ul>
+      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
       <li><a class="page-link" href="/tonic-data-manager/api/">API</a></li>
       <li><a class="page-link" href="/tonic-data-manager/source/TonicDataManager.html">Source</a></li>
-      <li><a class="page-link" href="/tonic-data-manager/dev/">Development</a></li>
     </ul>
-
   </aside>
 </div>
 
