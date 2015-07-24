@@ -3,10 +3,15 @@ layout: docs
 title: Type management
 prev_section: pattern
 permalink: /docs/download_type/
+repo_path: /docs/guides/usage/download_type.md
 ---
 
 Tonic Data Manager handle various data type which may need different handling.
 This guide will go through all the possible types and how to interact with them.
+
+All listening is managed using [monologue.js](https://www.npmjs.com/package/monologue.js)
+and is not be fully described here but can be used as described
+[here](https://www.npmjs.com/package/monologue.js).
 
 ## JSON
 
@@ -26,19 +31,14 @@ Let's pretend the server JSON file is as follow:
 Let's define the callback function that we will be using for the JSON data handling.
 
 ```
-function onJsonData(error, cacheDataObject) {
-    if(error) {
-        // Something wrong happened
-        throw error;
-    }
-    //
-    var jsonObj = cacheDataObject.data;
-    //
+function onJsonData(data, envelope) {
+    var jsonObj = data.data;
+
     // Print additional cache meta data
-    console.log(" - Last read time: " + cacheDataObject.ts);
-    console.log(" - Data Type: " + cacheDataObject.type);
-    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
-    //
+    console.log(" - Last read time: " + data.ts);
+    console.log(" - Data Type: " + data.type);
+    console.log(" - Requested URL: " + data.requestedURL);
+
     // Access data from JSON object
     console.log(" - str: " + jsonObj.str);
     console.log(" - array: " + jsonObj.array);
@@ -71,17 +71,13 @@ Let's pretend the server Text file is an html template like that:
 Let's define the callback function that we will be using for the Text data handling.
 
 ```
-function onTxtData(error, cacheDataObject) {
-    if(error) {
-        // Something wrong happened
-        throw error;
-    }
+function onTxtData(data, envelope) {
     // Print additional cache meta data
-    console.log(" - Last read time: " + cacheDataObject.ts);
-    console.log(" - Data Type: " + cacheDataObject.type);
-    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+    console.log(" - Last read time: " + data.ts);
+    console.log(" - Data Type: " + data.type);
+    console.log(" - Requested URL: " + data.requestedURL);
     // Replace content inside your DOM
-    var strHTML = cacheDataObject.data;
+    var strHTML = data.data;
     $('.help').html(strHTML);
 }
 ```
@@ -109,14 +105,14 @@ Binary large object can be of any type, but require a mime type to properly work
 Here is an example on how a blob data object can be used via a callback.
 
 ```
-function onBlobData(error, cacheDataObject) {
-    var blob = cacheDataObject.data;
+function onBlobData(data, envelope) {
+    var blob = data.data;
     // Print additional cache meta data
-    console.log(" - Last read time: " + cacheDataObject.ts);
-    console.log(" - Data Type: " + cacheDataObject.type);
-    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+    console.log(" - Last read time: " + data.ts);
+    console.log(" - Data Type: " + data.type);
+    console.log(" - Requested URL: " + data.requestedURL);
     // The URL let you provide a link to the blob
-    console.log(" - Usable URL: " + cacheDataObject.url);
+    console.log(" - Usable URL: " + data.url);
 }
 ```
 
@@ -143,17 +139,17 @@ Array buffer is actually a Uint8Array array type.
 The callback could be as following:
 
 ```
-function onArrayData(error, cacheDataObject) {
-    if(error) {
+function onArrayData(data, envelope) {
+    if(data.error) {
         // Something wrong happened
-        throw error;
+        throw data.error;
     }
     // Print additional cache meta data
-    console.log(" - Last read time: " + cacheDataObject.ts);
-    console.log(" - Data Type: " + cacheDataObject.type);
-    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+    console.log(" - Last read time: " + data.ts);
+    console.log(" - Data Type: " + data.type);
+    console.log(" - Requested URL: " + data.requestedURL);
     // Replace content inside your DOM
-    var Uint8ArrayObj = cacheDataObject.data;
+    var Uint8ArrayObj = data.data;
     // [...]
 }
 ```
@@ -176,21 +172,21 @@ tonicDataManager.fetch('array-buffer', { name: 'data', ext: 'dat'});
 
 ## Images
 
-Images are nothing more than a blob. So if you want to download images and 
+Images are nothing more than a blob. So if you want to download images and
 use them inside your DOM, you can do so with the following callback and similar
 request as the standard blob call.
 
 ```
-function onImage(error, cacheDataObject) {
-    var blob = cacheDataObject.data;
+function onImage(data, envelope) {
+    var blob = data.data;
     // Print additional cache meta data
-    console.log(" - Last read time: " + cacheDataObject.ts);
-    console.log(" - Data Type: " + cacheDataObject.type);
-    console.log(" - Requested URL: " + cacheDataObject.requestedURL);
+    console.log(" - Last read time: " + data.ts);
+    console.log(" - Data Type: " + data.type);
+    console.log(" - Requested URL: " + data.requestedURL);
     // The URL let you provide a link to the blob
-    console.log(" - Usable URL: " + cacheDataObject.url);
+    console.log(" - Usable URL: " + data.url);
     // Update the image in the DOM
-    $('.image-to-refresh').attr('src', cacheDataObject.url);
+    $('.image-to-refresh').attr('src', data.url);
 }
 ```
 

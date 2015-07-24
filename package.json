@@ -1,42 +1,45 @@
 {
   "name": "tonic-data-manager",
   "description": "JavaScript library used to ease data retrieval from a remote server with cache capability for Image, JSON, Text and binary data.",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "license": "BSD-3-Clause",
-  "main": "./lib/tonic-data-manager.js",
+  "main": "./lib/TonicDataManager.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kitware/tonic-data-manager.git"
   },
   "dependencies": {
-    "node-event-emitter": "latest"
+    "monologue.js": "^0.3.3"
   },
   "devDependencies": {
     "tonic-site-generator": "Kitware/tonic-site-generator",
-    "jshint-loader": "latest",
-    "strict-loader": "latest",
-    "url-loader": "latest",
-    "expose-loader": "latest",
-    "webpack": "latest",
-    "jasmine-core": "latest",
-    "jest-cli": "latest",
-    "karma-cli": "latest",
-    "karma-jasmine": "latest",
-    "karma-phantomjs-launcher": "latest",
-    "karma-chrome-launcher": "latest",
-    "karma-firefox-launcher": "latest",
-    "karma-safari-launcher": "latest",
-    "serve": "latest"
+
+    "jshint": "2.5.0",
+    "jshint-loader": "0.8.3",
+    "file-loader": "0.8.4",
+    "url-loader": "0.5.6",
+    "babel-core": "5.7.0",
+    "babel-loader": "5.3.1",
+    "expose-loader": "0.7.0",
+    "node-libs-browser": "0.5.2",
+    "webpack": "1.10.1",
+    "jasmine-core": "2.3.4",
+    "karma": "0.12.37",
+    "karma-cli": "0.1.0",
+    "karma-jasmine": "0.3.6",
+    "phantomjs": "1.9.17",
+    "karma-phantomjs-launcher": "0.2.0",
+    "karma-chrome-launcher": "0.2.0",
+    "karma-firefox-launcher": "0.1.6",
+    "karma-safari-launcher": "0.1.1",
+    "serve": "1.4.0"
   },
   "scripts": {
     "build": "webpack",
     "build:debug": "webpack --display-modules",
     "build:release": "webpack -p",
-
     "www": "tonic-site-generator site.config.js",
-    "www:http" : "tonic-site-generator site.config.js --local-test && serve docs/www",
-
-    "http": "serve ./data",
+    "www:http": "tonic-site-generator site.config.js --local-test && serve docs/www",
     "test": "karma start ./tests/karma.conf.js",
     "test:chrome": "karma start ./tests/karma.conf.js --browsers Chrome --single-run"
   }

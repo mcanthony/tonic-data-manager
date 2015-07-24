@@ -9,7 +9,7 @@ module.exports = {
     "gitdir"    : "../../.git/modules/docs/www",
     "ctx"   : {
         "title": "Tonic Data Manager",
-        "vision": "Automagic Data Retrieval",
+        "vision": "Simple remote data handler",
         "description": "Data retrieval and management made easy",
         "details": "",
         "license": "BSD 3 Clause Open Source",
