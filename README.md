@@ -1,6 +1,7 @@
 ## [Simple remote data handler](http://kitware.github.io/tonic-data-manager/)
 
 [![Build Status](https://travis-ci.org/Kitware/tonic-data-manager.svg)](https://travis-ci.org/Kitware/tonic-data-manager)
+[![Dependency Status](https://david-dm.org/kitware/tonic-data-manager.svg)](https://david-dm.org/kitware/tonic-data-manager)
 
 ### Images
 
