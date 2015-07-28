@@ -19,6 +19,10 @@ module.exports = {
         "url" : "",
         "repository": "Kitware/tonic-data-manager",
         "timezone": "America/Denver",
-        "project": "tonic-data-manager"
+        "project": "tonic-data-manager",
+        "status": [
+            {"subject": "api_stability", "status": "fair", "color": "green"},
+            {"subject": "feature_complete", "status": "★★★☆☆", "color": "green"}
+        ]
     }
 };

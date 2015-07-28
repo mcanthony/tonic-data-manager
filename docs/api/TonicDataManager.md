@@ -1,11 +1,11 @@
 # Tonic Data Manager #
 
-This module allow the user to fetch data (JSON, Text, ArrayBuffer, blob) and
-cache the result for future use. Additional pattern based URL request can
-be achieved. Image can also be retrieved as a blob and can be display using
+This module allows users to fetch data (JSON, Text, ArrayBuffer, blob) and
+cache the result for future use. Additional pattern based URL requests can
+be achieved. Images can also be retrieved as a blob and can be display using
 a generated browser url.
 
-A new instance need to be created like the following example
+A new instance is created with:
 
 ```javascript
 var TonicDataManager = require('tonic-data-manager'),
@@ -13,16 +13,16 @@ var TonicDataManager = require('tonic-data-manager'),
 ```
 
 All listening is managed using [monolog.js](https://www.npmjs.com/package/monologue.js)
-and might not be fully described here but can be used as described
+and might not be fully described here, consult their full documentation
 [here](https://www.npmjs.com/package/monologue.js).
 
 ## fetchURL(url, type[, mimeType])
 
-This method is used to fetch a data object from a static URL. The set of possible
-data type are: [ json', 'text', 'blob', 'array' ]
+Fetches a data object from a static URL. The set of possible
+data type are: [ 'json', 'text', 'blob', 'array' ]
 
-For the **blob** type, an extra argument is required which is the mime type of
-the Blob.
+For the **blob** type, an extra argument is required which is the mimetype of
+the blob.
 
 ```javascript
 var url = '/data/myJsonFile.json';
@@ -36,8 +36,8 @@ tonicDataManager.fetchURL(url, 'json');
 
 ## fetch(key, options)
 
-This methods let you download a resource based on a previously registered pattern
-with specific key/value pair replacement.
+Downloads a resource based on a previously registered pattern
+with specific key-value pair replacement.
 
 Here is a full example using that method:
 
@@ -66,13 +66,13 @@ tonicDataManager.fetch('jsonDataModel', { name: 'info'});
 
 ## get(url[, freeCache])
 
-This method will return the downloaded data object if available or an **undefined**
-object.
+Returns the downloaded data object if available or an **undefined**
+object if unavailable.
 
 The _freeCache_ argument is optional and should be *true* if you want to remove
 the given resource from the cache.
 
-The standard returned object will looks like that:
+The standard returned object will look like the following:
 
 ```js
 {
@@ -86,11 +86,11 @@ The standard returned object will looks like that:
 
 ## free(url)
 
-Remove the entry from the cache based on the **requestedURL** of a cache entry.
+Removes the entry from the cache based on the **requestedURL** of a cache entry.
 
 ## registerURL(key, urlPattern, type, mimeType)
 
-This allow you to register pattern based URL to ease data fetching from it.
+Registers a pattern based URL to ease data fetching from it.
 
 ```js
 var pattern = '/data/{ds}/image_{idx}.png';
@@ -114,17 +114,17 @@ tonicDataManager.fetch(key, { idx: 2, ds: 'pressure' });
 
 ## unregisterURL(key)
 
-Remove the pattern from the registry.
+Removes the pattern from the registry.
 
 ## clear()
 
-Empty the content of the cache.
+Empties the content of the cache.
 
 ## on(event, listener)
 
-Attach a listener to a **url** or a pattern key.
+Attaches a listener to a **url** or a pattern key.
 
-Here is a list of possible listener functions
+Here is a list of possible listener functions:
 
 ```js
 function onJsonData(data, envelope) {
