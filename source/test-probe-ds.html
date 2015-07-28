@@ -103,7 +103,7 @@
 
         tonicDataManager = <span class="hljs-keyword">new</span> TonicDataManager();
 
-        tonicDataManager.on(<span class="hljs-string">'/base/data/probe/info.json'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
+        tonicDataManager.on(<span class="hljs-string">'/base/data/arctic/probe/info.json'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
             testHelper(<span class="hljs-literal">null</span>, data);
         });
 
@@ -120,7 +120,7 @@
         <p>Trigger the download request</p>
 
         
-          <div class='highlight'><pre>        <span class="hljs-keyword">var</span> fetchURL = <span class="hljs-string">'/base/data/probe/info.json'</span>,
+          <div class='highlight'><pre>        <span class="hljs-keyword">var</span> fetchURL = <span class="hljs-string">'/base/data/arctic/probe/info.json'</span>,
             url = tonicDataManager.fetchURL(fetchURL, <span class="hljs-string">'json'</span>);
         expect(url).toEqual(fetchURL);</pre></div>
         
@@ -151,7 +151,7 @@
         <p>Register file pattern</p>
 
         
-          <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/base/data/probe/'</span> + jsonDataModel.data[<span class="hljs-number">0</span>].pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
+          <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/base/data/arctic/probe/'</span> + jsonDataModel.data[<span class="hljs-number">0</span>].pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
             <span class="hljs-keyword">var</span> count = exepectedNbImages = jsonDataModel.arguments.slice.values.length;
             <span class="hljs-keyword">while</span>(count--) {
                 tonicDataManager.fetch(<span class="hljs-string">'images'</span>, {

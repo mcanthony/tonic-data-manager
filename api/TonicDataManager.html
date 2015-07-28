@@ -59,22 +59,20 @@
         </a>
     </nav>
 </div>
-
-<div>
-    <div id="wrapper">
-        <div id="content">
+<div id="wrapper">
+   <div id="content">
 <ul id="topnav">
     <li><a href="index.html">Index</a></li>
     <li><a href="#toc">TOC</a></li>
 </ul>
 <h1>Tonic Data Manager</h1>
 
-<p>This module allow the user to fetch data (JSON, Text, ArrayBuffer, blob) and
-cache the result for future use. Additional pattern based URL request can
-be achieved. Image can also be retrieved as a blob and can be display using
+<p>This module allows users to fetch data (JSON, Text, ArrayBuffer, blob) and
+cache the result for future use. Additional pattern based URL requests can
+be achieved. Images can also be retrieved as a blob and can be display using
 a generated browser url.</p>
 
-<p>A new instance need to be created like the following example</p>
+<p>A new instance is created with:</p>
 
 <pre class="brush:javascript">
 var TonicDataManager = require('tonic-data-manager'),
@@ -82,7 +80,7 @@ var TonicDataManager = require('tonic-data-manager'),
 </pre>
 
 <p>All listening is managed using <a href="https://www.npmjs.com/package/monologue.js">monolog.js</a>
-and might not be fully described here but can be used as described
+and might not be fully described here, consult their full documentation
 <a href="https://www.npmjs.com/package/monologue.js">here</a>.</p>
 
 <h2>Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
@@ -100,11 +98,11 @@ and might not be fully described here but can be used as described
 
 <h2>fetchURL(url, type[, mimeType]) <a href="#fetchURL" id="fetchURL" class="deep-link">#</a></h2>
 
-<p>This method is used to fetch a data object from a static URL. The set of possible
-data type are: [ json', 'text', 'blob', 'array' ]</p>
+<p>Fetches a data object from a static URL. The set of possible
+data type are: [ 'json', 'text', 'blob', 'array' ]</p>
 
-<p>For the <strong>blob</strong> type, an extra argument is required which is the mime type of
-the Blob.</p>
+<p>For the <strong>blob</strong> type, an extra argument is required which is the mimetype of
+the blob.</p>
 
 <pre class="brush:javascript">
 var url = '/data/myJsonFile.json';
@@ -118,8 +116,8 @@ tonicDataManager.fetchURL(url, 'json');
 
 <h2>fetch(key, options) <a href="#fetch" id="fetch" class="deep-link">#</a></h2>
 
-<p>This methods let you download a resource based on a previously registered pattern
-with specific key/value pair replacement.</p>
+<p>Downloads a resource based on a previously registered pattern
+with specific key-value pair replacement.</p>
 
 <p>Here is a full example using that method:</p>
 
@@ -148,13 +146,13 @@ tonicDataManager.fetch('jsonDataModel', { name: 'info'});
 
 <h2>get(url[, freeCache]) <a href="#get" id="get" class="deep-link">#</a></h2>
 
-<p>This method will return the downloaded data object if available or an <strong>undefined</strong>
-object.</p>
+<p>Returns the downloaded data object if available or an <strong>undefined</strong>
+object if unavailable.</p>
 
 <p>The <em>freeCache</em> argument is optional and should be <em>true</em> if you want to remove
 the given resource from the cache.</p>
 
-<p>The standard returned object will looks like that:</p>
+<p>The standard returned object will look like the following:</p>
 
 <pre class="brush:js">
 {
@@ -168,11 +166,11 @@ the given resource from the cache.</p>
 
 <h2>free(url) <a href="#free" id="free" class="deep-link">#</a></h2>
 
-<p>Remove the entry from the cache based on the <strong>requestedURL</strong> of a cache entry.</p>
+<p>Removes the entry from the cache based on the <strong>requestedURL</strong> of a cache entry.</p>
 
 <h2>registerURL(key, urlPattern, type, mimeType) <a href="#registerURL" id="registerURL" class="deep-link">#</a></h2>
 
-<p>This allow you to register pattern based URL to ease data fetching from it.</p>
+<p>Registers a pattern based URL to ease data fetching from it.</p>
 
 <pre class="brush:js">
 var pattern = '/data/{ds}/image_{idx}.png';
@@ -196,17 +194,17 @@ tonicDataManager.fetch(key, { idx: 2, ds: 'pressure' });
 
 <h2>unregisterURL(key) <a href="#unregisterURL" id="unregisterURL" class="deep-link">#</a></h2>
 
-<p>Remove the pattern from the registry.</p>
+<p>Removes the pattern from the registry.</p>
 
 <h2>clear() <a href="#clear" id="clear" class="deep-link">#</a></h2>
 
-<p>Empty the content of the cache.</p>
+<p>Empties the content of the cache.</p>
 
 <h2>on(event, listener) <a href="#on" id="on" class="deep-link">#</a></h2>
 
-<p>Attach a listener to a <strong>url</strong> or a pattern key.</p>
+<p>Attaches a listener to a <strong>url</strong> or a pattern key.</p>
 
-<p>Here is a list of possible listener functions</p>
+<p>Here is a list of possible listener functions:</p>
 
 <pre class="brush:js">
 function onJsonData(data, envelope) {
@@ -272,7 +270,6 @@ function onImage(data, envelope) {
     $('.image-to-refresh').attr('src', data.url);
 }
 </pre>
-            </div>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>
         <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
