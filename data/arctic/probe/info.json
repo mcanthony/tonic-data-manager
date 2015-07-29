@@ -4,21 +4,26 @@
       "time": {
          "ui": "slider",
          "values": [ "0", "1", "2" ],
-         "label": "Time" },
-      "field": {
-        "values": [ "temperature" ]
-      },
-      "slice": {
-        "values": [ "0", "1", "2" ]
-      }
+         "label": "Time"
+     }
   },
-  "arguments_order": [ "field", "time" ],
+  "arguments_order": [ "time" ],
   "data": [
       {
-        "name": "slice",
-        "type": "blob",
-        "mimeType": "image/png",
-        "pattern": "{time}/{field}_{slice}.png"
+          "name": "slice_0",
+          "type": "blob",
+          "mimeType": "image/png",
+          "pattern": "{time}/{field}_0.png"
+      },{
+          "name": "slice_1",
+          "type": "blob",
+          "mimeType": "image/png",
+          "pattern": "{time}/{field}_1.png"
+      },{
+          "name": "slice_2",
+          "type": "blob",
+          "mimeType": "image/png",
+          "pattern": "{time}/{field}_2.png"
       }
   ],
   "metadata": {
@@ -27,7 +32,10 @@
       "id": "mpas-probe-data",
       "description": "Some simulation data from MPAS"
   },
-  "slice-prober": {
+  "InSituDataProber": {
+    "slices": [ "slice_0", "slice_1", "slice_2" ],
+    "fields": [ "temperature" ],
+    "origin": [ -180, -84, 0],
     "sprite_size" : 10,
     "dimensions": [ 500, 250, 30 ],
     "spacing": [ 1.0, 1.0, 4.0 ],
