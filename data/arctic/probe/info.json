@@ -38,7 +38,7 @@
     "origin": [ -180, -84, 0],
     "sprite_size" : 10,
     "dimensions": [ 500, 250, 30 ],
-    "spacing": [ 1.0, 1.0, 4.0 ],
+    "spacing": [ 0.72, 0.672, 4.0 ],
     "ranges" : {
       "temperature": [-5, 30]
     }
