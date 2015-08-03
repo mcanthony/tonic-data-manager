@@ -151,7 +151,14 @@
     "webgl-composite-pipeline"
   ],
   "arguments_order": [],
-  "arguments": {},
+  "arguments": {
+    "theta": {
+      "values": [ "90.0" ]
+    },
+    "phi": {
+      "values": [ "0.0" ]
+    }
+  },
   "data": [
     {
       "name": "sxyzSprite",
