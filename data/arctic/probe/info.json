@@ -3,7 +3,7 @@
   "arguments": {
       "time": {
          "ui": "slider",
-         "values": [ "0", "1", "2" ],
+         "values": [ "0", "1" ],
          "label": "Time"
      }
   },
@@ -34,7 +34,7 @@
   },
   "InSituDataProber": {
     "slices": [ "slice_0", "slice_1", "slice_2" ],
-    "fields": [ "temperature" ],
+    "fields": [ "temperature", "salinity" ],
     "origin": [ -180, -84, 0],
     "sprite_size" : 10,
     "dimensions": [ 500, 250, 30 ],
