@@ -40,7 +40,8 @@
     "dimensions": [ 500, 250, 30 ],
     "spacing": [ 0.72, 0.672, 4.0 ],
     "ranges" : {
-      "temperature": [-5, 30]
+      "temperature": [-5, 30],
+      "salinity": [0, 38]
     }
   }
 }
