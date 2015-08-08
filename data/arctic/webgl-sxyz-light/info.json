@@ -148,7 +148,7 @@
   },
   "type": [
     "tonic-query-data-model",
-    "webgl-composite-pipeline"
+    "webgl-light-composite-pipeline"
   ],
   "arguments_order": [],
   "arguments": {
