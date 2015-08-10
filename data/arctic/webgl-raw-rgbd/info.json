@@ -152,7 +152,8 @@
     },
     "type": [
         "tonic-query-data-model",
-        "webgl-composite-pipeline"
+        "webgl-composite",
+        "raw-rgbd"
     ],
     "arguments_order": [],
     "arguments": {},

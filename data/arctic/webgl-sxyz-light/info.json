@@ -140,7 +140,8 @@
   },
   "type": [
     "tonic-query-data-model",
-    "webgl-light-composite-pipeline"
+    "webgl-composite",
+    "sxyz-light"
   ],
   "arguments_order": [],
   "arguments": {
