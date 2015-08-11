@@ -6,6 +6,8 @@
 
     function start() {
         intervalID = setInterval(processCallbackFnStack, 200);
+        callbackStack = [];
+        callbackFnStack = [];
     };
 
     // ----------------------------------------------------------------------------
