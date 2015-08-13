@@ -75,6 +75,20 @@
               
                 
                 <li>
+                  <a class="source" href="test-binary-download.html">
+                    test-binary-download.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-fetch-notification.html">
+                    test-fetch-notification.js
+                  </a>
+                </li>
+              
+                
+                <li>
                   <a class="source" href="test-probe-ds.html">
                     test-probe-ds.js
                   </a>
@@ -98,6 +112,8 @@
             nbToFree = <span class="hljs-number">0</span>,
             alreadyFree = <span class="hljs-number">0</span>,
             tonicDataManager = <span class="hljs-literal">null</span>;
+
+        testHelper.start();
 
         expect(TonicDataManager).toBeDefined();
 
@@ -141,10 +157,10 @@
 
             jsonDataModel = d.response.data;
 
-            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].dimensions).toEqual([<span class="hljs-number">500</span>, <span class="hljs-number">250</span>, <span class="hljs-number">30</span>]);
-            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].spacing).toEqual([<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">4.0</span>]);
-            expect(jsonDataModel.arguments.field.values).toEqual([ <span class="hljs-string">"temperature"</span> ]);
-            expect(jsonDataModel[<span class="hljs-string">"slice-prober"</span>].sprite_size).toEqual(<span class="hljs-number">10</span>);</pre></div>
+            expect(jsonDataModel[<span class="hljs-string">"InSituDataProber"</span>].dimensions).toEqual([<span class="hljs-number">500</span>, <span class="hljs-number">250</span>, <span class="hljs-number">30</span>]);
+            expect(jsonDataModel[<span class="hljs-string">"InSituDataProber"</span>].spacing).toEqual([<span class="hljs-number">0.72</span>, <span class="hljs-number">0.672</span>, <span class="hljs-number">4</span> ]);
+            expect(jsonDataModel.InSituDataProber.fields).toEqual([ <span class="hljs-string">"temperature"</span>, <span class="hljs-string">"salinity"</span> ]);
+            expect(jsonDataModel[<span class="hljs-string">"InSituDataProber"</span>].sprite_size).toEqual(<span class="hljs-number">10</span>);</pre></div>
         
       
         
@@ -152,12 +168,11 @@
 
         
           <div class='highlight'><pre>            tonicDataManager.registerURL(<span class="hljs-string">'images'</span>, <span class="hljs-string">'/base/data/arctic/probe/'</span> + jsonDataModel.data[<span class="hljs-number">0</span>].pattern, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/png'</span>);
-            <span class="hljs-keyword">var</span> count = exepectedNbImages = jsonDataModel.arguments.slice.values.length;
+            <span class="hljs-keyword">var</span> count = exepectedNbImages = <span class="hljs-number">1</span>;
             <span class="hljs-keyword">while</span>(count--) {
                 tonicDataManager.fetch(<span class="hljs-string">'images'</span>, {
                     time: jsonDataModel.arguments.time.values[<span class="hljs-number">0</span>],
-                    field: jsonDataModel.arguments.field.values[<span class="hljs-number">0</span>],
-                    slice: jsonDataModel.arguments.slice.values[count]
+                    field: <span class="hljs-string">'temperature'</span>
                 });
             }
         });
@@ -208,13 +223,20 @@
         
       
         
-        <p>We should have to free some</p>
+        <p>We should have to free some
+expect(nbToFree).toBeGreaterThan(0);
+expect(alreadyFree).toBeGreaterThan(0);</p>
 
         
-          <div class='highlight'><pre>                expect(nbToFree).toBeGreaterThan(<span class="hljs-number">0</span>);
-                expect(alreadyFree).toBeGreaterThan(<span class="hljs-number">0</span>);
+          <div class='highlight'><pre>
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'JSON/Images pattern: done with success'</span>);</pre></div>
+        
+      
+        
+        <p>tonicDataManager.destroy();</p>
 
-                testHelper.done(done);
+        
+          <div class='highlight'><pre>                testHelper.done(done);
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nbImageAvailable &lt; exepectedNbImages) {
                 testHelper.waitAndRun(handleImage);
             }

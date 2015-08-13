@@ -75,6 +75,20 @@
               
                 
                 <li>
+                  <a class="source" href="test-binary-download.html">
+                    test-binary-download.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-fetch-notification.html">
+                    test-fetch-notification.js
+                  </a>
+                </li>
+              
+                
+                <li>
                   <a class="source" href="test-probe-ds.html">
                     test-probe-ds.js
                   </a>
@@ -97,6 +111,7 @@
         json:  request.fetchJSON,
         text:  request.fetchTxt,
         blob:  request.fetchBlob,
+        arraybuffer: request.fetchArray,
         array: request.fetchArray
     };</pre></div>
         
@@ -108,6 +123,22 @@
           <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ts</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
 }</pre></div>
+        
+      
+        
+        <p>Should use converter
+flipArrayEndianness = function(array) {
+  var u8 = new Uint8Array(array.buffer, array.byteOffset, array.byteLength);
+  for (var i=0; i<array.byteLength; i+=array.BYTES_PER_ELEMENT) {
+    for (var j=i+array.BYTES_PER_ELEMENT-1, k=i; j>k; j–, k++) {
+      var tmp = u8[k];
+      u8[k] = u8[j];
+      u8[j] = tmp;
+    }
+  }
+  return array;
+}</p>
+
         
       
         
@@ -129,7 +160,11 @@
         <p>Add Observer pattern to TonicDataManager using Monologue.js</p>
 
         
-          <div class='highlight'><pre>Monologue.mixInto(TonicDataManager);</pre></div>
+          <div class='highlight'><pre>Monologue.mixInto(TonicDataManager);
+
+TonicDataManager.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.off();
+}</pre></div>
         
       
         
@@ -142,17 +177,26 @@ This will trigger an event using the key as the type</p>
         dataCached = <span class="hljs-keyword">this</span>.cacheData.cache[url];
 
     <span class="hljs-keyword">if</span>(dataCached) {
-        <span class="hljs-keyword">this</span>.cacheData.ts = dataCached.ts = ts();</pre></div>
+        <span class="hljs-keyword">if</span>(!dataCached.pending) {
+            <span class="hljs-keyword">this</span>.cacheData.ts = dataCached.ts = ts();</pre></div>
         
       
         
         <p>Trigger the event after the return</p>
 
         
-          <div class='highlight'><pre>        setTimeout( () =&gt; {
-            <span class="hljs-keyword">this</span>.emit(key, dataCached);
-        }, <span class="hljs-number">0</span>);
+          <div class='highlight'><pre>            setTimeout( () =&gt; {
+                <span class="hljs-keyword">this</span>.emit(key, dataCached);
+            }, <span class="hljs-number">0</span>);
+        }
     } <span class="hljs-keyword">else</span> {</pre></div>
+        
+      
+        
+        <p>Prevent double fetch</p>
+
+        
+          <div class='highlight'><pre>        <span class="hljs-keyword">this</span>.cacheData.cache[url] = { pending: <span class="hljs-literal">true</span> };</pre></div>
         
       
         
@@ -166,6 +210,7 @@ This will trigger an event using the key as the type</p>
             mimeType = typeFnMime[<span class="hljs-number">2</span>],
             callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>{
                 <span class="hljs-keyword">if</span>(error) {
+                    <span class="hljs-keyword">delete</span> self.cacheData.cache[url];
                     self.emit(key, { error, data: { key: key, options: options, url: url, typeFnMime: typeFnMime}});
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
                 }
@@ -173,7 +218,8 @@ This will trigger an event using the key as the type</p>
                 dataCached = {
                     data: data,
                     type: type,
-                    requestedURL: url
+                    requestedURL: url,
+                    pending: <span class="hljs-literal">false</span>
                 };</pre></div>
         
       

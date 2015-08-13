@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Tonic Data Manager</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="/tonic-data-manager/css/main.css">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+<header class="site-header">
+
+    <nav class="mobile-nav show-on-mobiles">
+        <a class="page-link" href="/tonic-data-manager/"><i class="fa fa-home fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/docs/home"><i class="fa fa-book fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/news"><i class="fa fa-newspaper-o fa-fw fa-lg"></i></a>
+    </nav>
+    <div class="wrapper">
+
+        <a class="site-title center-on-mobiles" href="/">
+            <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+            Tonic Data Manager
+        </a>
+        <nav class="site-nav hide-on-mobiles">
+            <a href="#" class="menu-icon">
+                <svg viewBox="0 0 18 15">
+                    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+                    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+                    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+                </svg>
+            </a>
+            <div class="trigger">
+                <a class="page-link" href="/tonic-data-manager/">Home</a>
+                <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+                <a class="page-link" href="/tonic-data-manager/news">News</a>
+            </div>
+        </nav>
+    </div>
+
+</header>
+
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>test-fetch-notification.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="TonicDataManager.html">
+                    TonicDataManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="pattern.html">
+                    pattern.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="request.html">
+                    request.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-binary-download.html">
+                    test-binary-download.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-fetch-notification.html">
+                    test-fetch-notification.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-probe-ds.html">
+                    test-probe-ds.js
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>describe(<span class="hljs-string">"Tonic Data Manager - Trigger n fetch and check the amount of notification"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        it(<span class="hljs-string">'test fetch/notification count match'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>) </span>{
+            <span class="hljs-keyword">var</span> tonicDataManager = <span class="hljs-literal">null</span>,
+                urlToFetch = <span class="hljs-string">'/base/data/arctic/mpas-composite/rgb.jpg'</span>,
+                numberToTry = <span class="hljs-number">10</span>,
+                fetchCount = <span class="hljs-number">0</span>,
+                notificationCount = <span class="hljs-number">0</span>;
+            testHelper.start();
+
+            expect(TonicDataManager).toBeDefined();
+            tonicDataManager = <span class="hljs-keyword">new</span> TonicDataManager();
+
+            tonicDataManager.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
+                <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'ERROR'</span>);
+                testHelper(data.error, data.response);
+            });
+
+            tonicDataManager.on(urlToFetch, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
+                notificationCount++;
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'notification n:'</span> + notificationCount + <span class="hljs-string">'/f:'</span> + fetchCount);
+                testHelper(<span class="hljs-literal">null</span>, data);
+            });
+
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createNewFetch</span>(<span class="hljs-params"></span>) </span>{</pre></div>
+        
+      
+        
+        <p>Trigger the download request</p>
+
+        
+          <div class='highlight'><pre>                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'fetch '</span> + (<span class="hljs-number">1</span>+fetchCount));
+                <span class="hljs-keyword">var</span> url = tonicDataManager.fetchURL(urlToFetch, <span class="hljs-string">'blob'</span>, <span class="hljs-string">'image/jpg'</span>);
+                fetchCount++;
+                expect(url).toEqual(urlToFetch);</pre></div>
+        
+      
+        
+        <p>Inspect data</p>
+
+        
+          <div class='highlight'><pre>                testHelper.waitAndRun(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">d</span>) </span>{</pre></div>
+        
+      
+        
+        <p>No error</p>
+
+        
+          <div class='highlight'><pre>                    expect(d.error).toBeNull();
+                    expect(d.response).not.toBeNull();
+
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'n: '</span> +notificationCount + <span class="hljs-string">' f: '</span> + fetchCount + <span class="hljs-string">' t: '</span> + numberToTry);</pre></div>
+        
+      
+        
+        <p>Finish test</p>
+
+        
+          <div class='highlight'><pre>                    <span class="hljs-keyword">if</span>(notificationCount === fetchCount &amp;&amp; notificationCount === numberToTry) {
+                        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Fetch/Notification: done with success'</span>);</pre></div>
+        
+      
+        
+        <p>tonicDataManager.destroy();</p>
+
+        
+          <div class='highlight'><pre>                        testHelper.done(done);
+                    }
+
+                    <span class="hljs-keyword">if</span>(fetchCount &lt; numberToTry) {
+                        createNewFetch();
+                    }
+                });
+            }
+
+            createNewFetch();
+        });
+});</pre></div>
+        
+      
+    </div>
+  </div>
+</body>
+</html>

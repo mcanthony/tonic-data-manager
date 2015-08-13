@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Tonic Data Manager</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="/tonic-data-manager/css/main.css">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+<header class="site-header">
+
+    <nav class="mobile-nav show-on-mobiles">
+        <a class="page-link" href="/tonic-data-manager/"><i class="fa fa-home fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/docs/home"><i class="fa fa-book fa-fw fa-lg"></i></a>
+        <a class="page-link" href="/tonic-data-manager/news"><i class="fa fa-newspaper-o fa-fw fa-lg"></i></a>
+    </nav>
+    <div class="wrapper">
+
+        <a class="site-title center-on-mobiles" href="/">
+            <img src="/tonic-data-manager/img/logo.png" height="40" alt="Logo">
+            Tonic Data Manager
+        </a>
+        <nav class="site-nav hide-on-mobiles">
+            <a href="#" class="menu-icon">
+                <svg viewBox="0 0 18 15">
+                    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+                    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+                    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+                </svg>
+            </a>
+            <div class="trigger">
+                <a class="page-link" href="/tonic-data-manager/">Home</a>
+                <a class="page-link" href="/tonic-data-manager/docs/home">Docs</a>
+                <a class="page-link" href="/tonic-data-manager/news">News</a>
+            </div>
+        </nav>
+    </div>
+
+</header>
+
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>test-binary-download.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="TonicDataManager.html">
+                    TonicDataManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="pattern.html">
+                    pattern.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="request.html">
+                    request.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-binary-download.html">
+                    test-binary-download.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-fetch-notification.html">
+                    test-fetch-notification.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-probe-ds.html">
+                    test-probe-ds.js
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre><span class="hljs-keyword">var</span> dataTesting = {
+    <span class="hljs-string">'data.int8.dat'</span>: { type: <span class="hljs-built_in">Int8Array</span>, values: [  -<span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>, <span class="hljs-number">127</span> ]},
+    <span class="hljs-string">'data.uint8.dat'</span>: { type: <span class="hljs-built_in">Uint8Array</span>, values: [ <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>, <span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">254</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">120</span> ]},
+    <span class="hljs-string">'data.int16.le.dat'</span>: { type: <span class="hljs-built_in">Int16Array</span>, values: [ -<span class="hljs-number">32500</span>, -<span class="hljs-number">1024</span>, -<span class="hljs-number">512</span>, <span class="hljs-number">0</span>, <span class="hljs-number">512</span>, <span class="hljs-number">1024</span>, <span class="hljs-number">32500</span>]},
+    <span class="hljs-string">'data.uint16.le.dat'</span>: { type: <span class="hljs-built_in">Uint16Array</span>, values: [ <span class="hljs-number">0</span>, <span class="hljs-number">512</span>, <span class="hljs-number">1024</span>, <span class="hljs-number">2048</span>, <span class="hljs-number">4096</span>, <span class="hljs-number">9192</span>, <span class="hljs-number">16384</span>, <span class="hljs-number">32768</span>, <span class="hljs-number">65535</span>]},
+    <span class="hljs-string">'data.int32.le.dat'</span>: { type: <span class="hljs-built_in">Int32Array</span>, values: [ -<span class="hljs-number">65000</span>, -<span class="hljs-number">32500</span>, -<span class="hljs-number">1024</span>, -<span class="hljs-number">512</span>, <span class="hljs-number">0</span>, <span class="hljs-number">512</span>, <span class="hljs-number">1024</span>, <span class="hljs-number">32500</span>, <span class="hljs-number">65000</span>]},
+    <span class="hljs-string">'data.uint32.le.dat'</span>: { type: <span class="hljs-built_in">Uint32Array</span>, values: [ <span class="hljs-number">0</span>, <span class="hljs-number">512</span>, <span class="hljs-number">1024</span>, <span class="hljs-number">2048</span>, <span class="hljs-number">4096</span>, <span class="hljs-number">8192</span>, <span class="hljs-number">16384</span>, <span class="hljs-number">32768</span>, <span class="hljs-number">65535</span>, <span class="hljs-number">131071</span>]},
+    <span class="hljs-string">'data.float32.le.dat'</span>: { type: <span class="hljs-built_in">Float32Array</span>, values: [ <span class="hljs-number">0</span>, <span class="hljs-number">512.1024</span>, <span class="hljs-number">2048.4096</span>, <span class="hljs-number">8192.16384</span>, <span class="hljs-number">32768.65535</span>]},
+    <span class="hljs-string">'data.float64.le.dat'</span>: { type: <span class="hljs-built_in">Float64Array</span>, values: [ <span class="hljs-number">0</span>, <span class="hljs-number">512.1024</span>, <span class="hljs-number">2048.4096</span>, <span class="hljs-number">8192.16384</span>, <span class="hljs-number">32768.65535</span>]},</pre></div>
+        
+      
+        
+        <p>‘data.int16.be.dat’: { type: Int16Array, values: [ -32500, -1024, -512, 0, 512, 1024, 32500]},
+‘data.uint16.be.dat’: { type: Uint16Array, values: [ 0, 512, 1024, 2048, 4096, 9192, 16384, 32768, 65535]},
+‘data.int32.be.dat’: { type: Int32Array, values: [ -65000, -32500, -1024, -512, 0, 512, 1024, 32500, 65000]},
+‘data.uint32.be.dat’: { type: Uint32Array, values: [ 0, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65535, 131071]},
+‘data.float32.be.dat’: { type: Float32Array, values: [ 0, 512.1024, 2048.4096, 8192.16384, 32768.65535]},
+‘data.float64.be.dat’: { type: Float64Array, values: [ 0, 512.1024, 2048.4096, 8192.16384, 32768.65535]}</p>
+
+        
+          <div class='highlight'><pre>}, epsilon = <span class="hljs-number">0.001</span>;
+
+
+describe(<span class="hljs-string">"Tonic Data Manager - Download Binary Data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        it(<span class="hljs-string">'test all data format'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>) </span>{
+            <span class="hljs-keyword">var</span> tonicDataManager = <span class="hljs-literal">null</span>,
+                dataTypes = <span class="hljs-built_in">Object</span>.keys(dataTesting);
+
+            testHelper.start();
+
+            expect(TonicDataManager).toBeDefined();
+            tonicDataManager = <span class="hljs-keyword">new</span> TonicDataManager();
+
+            tonicDataManager.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
+                <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'ERROR'</span>);
+                testHelper(data.error, data.response);
+            });
+
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processData</span>(<span class="hljs-params">name</span>) </span>{
+                tonicDataManager.on(<span class="hljs-string">'/base/data/binary/'</span> + name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, envelope</span>) </span>{
+                    testHelper(<span class="hljs-literal">null</span>, data);
+                });</pre></div>
+        
+      
+        
+        <p>Trigger the download request</p>
+
+        
+          <div class='highlight'><pre>                <span class="hljs-keyword">var</span> fetchURL = <span class="hljs-string">'/base/data/binary/'</span> + name,
+                    url = tonicDataManager.fetchURL(fetchURL, <span class="hljs-string">'arraybuffer'</span>);
+                expect(url).toEqual(fetchURL);</pre></div>
+        
+      
+        
+        <p>Inspect data</p>
+
+        
+          <div class='highlight'><pre>                testHelper.waitAndRun(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">d</span>) </span>{</pre></div>
+        
+      
+        
+        <p>No error</p>
+
+        
+          <div class='highlight'><pre>                    expect(d.error).toBeNull();
+                    expect(d.response).not.toBeNull();
+
+                    <span class="hljs-keyword">var</span> buffer = d.response.data;
+
+                    <span class="hljs-keyword">var</span> nativeArray = <span class="hljs-keyword">new</span> dataTesting[name].type(buffer),
+                        nativeToArray = [],
+                        valideValues = dataTesting[name].values,
+                        count = nativeArray.length,
+                        dataIsEquals = <span class="hljs-literal">true</span>;
+
+                    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) {
+                        nativeToArray.push(nativeArray[i]);
+                        dataIsEquals = dataIsEquals &amp;&amp; <span class="hljs-built_in">Math</span>.abs(nativeArray[i] - valideValues[i]) &lt; epsilon;
+                    }
+
+                    <span class="hljs-keyword">if</span>(!dataIsEquals) {
+                        <span class="hljs-built_in">console</span>.error(name + <span class="hljs-string">' is not valid:'</span>);
+                        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Native(s): '</span>.replace(<span class="hljs-regexp">/s/g</span>, nativeToArray.length) + nativeToArray);
+                        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Expect(s): '</span>.replace(<span class="hljs-regexp">/s/g</span>, valideValues.length) + valideValues);
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">' is VALID '</span>);
+                    }</pre></div>
+        
+      
+        
+        <p>Finish test</p>
+
+        
+          <div class='highlight'><pre>                    <span class="hljs-keyword">if</span>(dataTypes.length) {
+                        processData(dataTypes.shift());
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Binary data: done with success'</span>);</pre></div>
+        
+      
+        
+        <p>tonicDataManager.destroy();</p>
+
+        
+          <div class='highlight'><pre>                        testHelper.done(done);
+                    }
+                });
+            }
+
+            processData(dataTypes.shift());
+        });
+});</pre></div>
+        
+      
+    </div>
+  </div>
+</body>
+</html>

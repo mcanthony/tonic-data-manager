@@ -75,6 +75,20 @@
               
                 
                 <li>
+                  <a class="source" href="test-binary-download.html">
+                    test-binary-download.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="test-fetch-notification.html">
+                    test-fetch-notification.js
+                  </a>
+                </li>
+              
+                
+                <li>
                   <a class="source" href="test-probe-ds.html">
                     test-probe-ds.js
                   </a>
@@ -117,9 +131,7 @@
             <span class="hljs-keyword">if</span>(error) {
                 <span class="hljs-keyword">return</span> callback(error);
             }
-
-            <span class="hljs-keyword">var</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(xhrObject.response);
-            callback(<span class="hljs-literal">null</span>, array);
+            callback(<span class="hljs-literal">null</span>, xhrObject.response);
         }
     };
 }</pre></div>
