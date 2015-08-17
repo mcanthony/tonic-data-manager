@@ -1,7 +1,7 @@
 {
   "name": "tonic-data-manager",
   "description": "JavaScript library used to ease data retrieval from a remote server with cache capability for Image, JSON, Text and binary data.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "BSD-3-Clause",
   "main": "./lib/TonicDataManager.js",
   "repository": {
