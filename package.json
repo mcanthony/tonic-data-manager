@@ -1,7 +1,7 @@
 {
   "name": "tonic-data-manager",
   "description": "JavaScript library used to ease data retrieval from a remote server with cache capability for Image, JSON, Text and binary data.",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "BSD-3-Clause",
   "main": "./lib/TonicDataManager.js",
   "repository": {
@@ -9,26 +9,27 @@
     "url": "https://github.com/Kitware/tonic-data-manager.git"
   },
   "dependencies": {
-    "monologue.js": "^0.3.3"
   },
   "devDependencies": {
-    "tonic-site-generator": "Kitware/tonic-site-generator",
+    "monologue.js": "0.3.3",
 
-    "jshint": "2.5.0",
+    "tonic-site-generator": "0.1.0",
+
+    "jshint": "2.8.0",
     "jshint-loader": "0.8.3",
     "file-loader": "0.8.4",
     "url-loader": "0.5.6",
-    "babel-core": "5.7.0",
-    "babel-loader": "5.3.1",
+    "babel-core": "5.8.22",
+    "babel-loader": "5.3.2",
     "expose-loader": "0.7.0",
     "node-libs-browser": "0.5.2",
-    "webpack": "1.10.1",
+    "webpack": "1.11.0",
     "jasmine-core": "2.3.4",
-    "karma": "0.12.37",
+    "karma": "0.13.9",
     "karma-cli": "0.1.0",
     "karma-jasmine": "0.3.6",
-    "phantomjs": "1.9.17",
-    "karma-phantomjs-launcher": "0.2.0",
+    "phantomjs": "1.9.18",
+    "karma-phantomjs-launcher": "0.2.1",
     "karma-chrome-launcher": "0.2.0",
     "karma-firefox-launcher": "0.1.6",
     "karma-safari-launcher": "0.1.1",
