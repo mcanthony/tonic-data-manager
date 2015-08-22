@@ -186,8 +186,17 @@ This will trigger an event using the key as the type</p>
 
         
           <div class='highlight'><pre>            setTimeout( () =&gt; {
-                <span class="hljs-keyword">this</span>.emit(key, dataCached);
+                <span class="hljs-keyword">var</span> array = dataCached.keysToNotify || [ key ],
+                    count = array.length;
+
+                <span class="hljs-keyword">delete</span> dataCached.keysToNotify;
+
+                <span class="hljs-keyword">while</span>(count--) {
+                    <span class="hljs-keyword">this</span>.emit(array[count], dataCached);
+                }
             }, <span class="hljs-number">0</span>);
+        } <span class="hljs-keyword">else</span> {
+            dataCached.keysToNotify.push(key);
         }
     } <span class="hljs-keyword">else</span> {</pre></div>
         
@@ -196,7 +205,7 @@ This will trigger an event using the key as the type</p>
         <p>Prevent double fetch</p>
 
         
-          <div class='highlight'><pre>        <span class="hljs-keyword">this</span>.cacheData.cache[url] = { pending: <span class="hljs-literal">true</span> };</pre></div>
+          <div class='highlight'><pre>        <span class="hljs-keyword">this</span>.cacheData.cache[url] = { pending: <span class="hljs-literal">true</span>, keysToNotify: [key] };</pre></div>
         
       
         
@@ -240,17 +249,22 @@ This will trigger an event using the key as the type</p>
         
       
         
-        <p>Store it in the cache</p>
-
-        
-          <div class='highlight'><pre>                self.cacheData.cache[url] = dataCached;</pre></div>
-        
-      
-        
         <p>Trigger the event</p>
 
         
-          <div class='highlight'><pre>                self.emit(key, dataCached);
+          <div class='highlight'><pre>                <span class="hljs-keyword">var</span> array = self.cacheData.cache[url].keysToNotify,
+                    count = array.length;</pre></div>
+        
+      
+        
+        <p>Store it in the cache</p>
+
+        
+          <div class='highlight'><pre>                self.cacheData.cache[url] = dataCached;
+
+                <span class="hljs-keyword">while</span>(count--) {
+                    self.emit(array[count], dataCached);
+                }
             };
 
         fn(url, mimeType ? mimeType : callback, callback);

@@ -116,6 +116,9 @@
         }
         handler.fn(e, xhr);
     };
+    xhr.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        handler.fn(e, xhr);
+    }
     xhr.send();
 }</pre></div>
         
