@@ -10,7 +10,7 @@
         }
     ],
     "dimensions": [ 500, 500 ],
-    "ranges": { "RTData": [ 27.0, 300.0 ] }
+    "ranges": { "RTData": [ 37.35310363769531, 276.8288269042969 ] }
   },
   "type": [ "tonic-query-data-model", "float-image" ],
   "arguments_order": [],
