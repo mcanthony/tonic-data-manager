@@ -1,0 +1,21 @@
+{
+  "FloatImage": {
+    "layers": [
+        {
+            "name": "cube",
+            "array": "RTData",
+            "arrays": ["RTData"],
+            "type": "Float32Array",
+            "active": true
+        }
+    ],
+    "dimensions": [ 500, 500 ],
+    "ranges": { "RTData": [ 27.0, 300.0 ] }
+  },
+  "type": [ "tonic-query-data-model", "float-image" ],
+  "arguments_order": [],
+  "arguments": {},
+  "data": [
+    { "name": "cube_RTData", "type": "array", "pattern": "RTData.float32" }
+  ]
+}
