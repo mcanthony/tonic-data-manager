@@ -9,9 +9,9 @@
     "url": "https://github.com/Kitware/tonic-data-manager.git"
   },
   "dependencies": {
+    "monologue.js": "0.3.3"
   },
   "devDependencies": {
-    "monologue.js": "0.3.3"
   },
   "scripts": {
     "build": "webpack",
