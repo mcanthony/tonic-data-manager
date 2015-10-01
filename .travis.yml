@@ -15,7 +15,6 @@ node_js:
 before_install:
   - npm run dep:travis
 script:
-  - npm test -- --browsers PhantomJS --single-run
   - npm run build:release
 after_success:
   - npm run semantic-release
