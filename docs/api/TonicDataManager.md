@@ -9,7 +9,7 @@ A new instance is created with:
 
 ```javascript
 var TonicDataManager = require('tonic-data-manager'),
-    instance = new TonicDataManager();
+    instance = new TonicDataManager(cacheSize = 1 000 000 000); // 1 GB by default
 ```
 
 All listening is managed using [monolog.js](https://www.npmjs.com/package/monologue.js)
@@ -190,3 +190,15 @@ function onImage(data, envelope) {
     $('.image-to-refresh').attr('src', data.url);
 }
 ```
+
+## getCacheSize()
+
+Return the maximum size that the cache can contain before the gc() take any action.
+
+## setCacheSize( maxSizeInBytes )
+
+Update the maximum cache size to adjust when the garbage collector should empty it.
+
+## getMemoryUsage()
+
+Return the current memory usage of the cache data in Bytes.
