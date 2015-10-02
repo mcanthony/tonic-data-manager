@@ -76,7 +76,7 @@ a generated browser url.</p>
 
 <pre class="brush:javascript">
 var TonicDataManager = require('tonic-data-manager'),
-    instance = new TonicDataManager();
+    instance = new TonicDataManager(cacheSize = 1 000 000 000); // 1 GB by default
 </pre>
 
 <p>All listening is managed using <a href="https://www.npmjs.com/package/monologue.js">monolog.js</a>
@@ -94,6 +94,9 @@ and might not be fully described here, consult their full documentation
 <li><a href="#unregisterURL">unregisterURL()</a></li>
 <li><a href="#clear">clear()</a></li>
 <li><a href="#on">on()</a></li>
+<li><a href="#getCacheSize">getCacheSize()</a></li>
+<li><a href="#setCacheSize">setCacheSize()</a></li>
+<li><a href="#getMemoryUsage">getMemoryUsage()</a></li>
 </ul>
 
 <h2>fetchURL(url, type[, mimeType]) <a href="#fetchURL" id="fetchURL" class="deep-link">#</a></h2>
@@ -270,6 +273,18 @@ function onImage(data, envelope) {
     $('.image-to-refresh').attr('src', data.url);
 }
 </pre>
+
+<h2>getCacheSize() <a href="#getCacheSize" id="getCacheSize" class="deep-link">#</a></h2>
+
+<p>Return the maximum size that the cache can contain before the gc() take any action.</p>
+
+<h2>setCacheSize( maxSizeInBytes ) <a href="#setCacheSize" id="setCacheSize" class="deep-link">#</a></h2>
+
+<p>Update the maximum cache size to adjust when the garbage collector should empty it.</p>
+
+<h2>getMemoryUsage() <a href="#getMemoryUsage" id="getMemoryUsage" class="deep-link">#</a></h2>
+
+<p>Return the current memory usage of the cache data in Bytes.</p>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>
         <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>

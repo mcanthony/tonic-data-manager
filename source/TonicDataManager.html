@@ -122,6 +122,17 @@
         
           <div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ts</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateDataSize</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-keyword">if</span>(data.type === <span class="hljs-string">'json'</span>) {
+        data.size = <span class="hljs-built_in">JSON</span>.stringify(data.data).length;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(data.type === <span class="hljs-string">'blob'</span>) {
+        data.size = data.data.size;
+    } <span class="hljs-keyword">else</span> {
+        data.size = data.data.length;
+    }
+    <span class="hljs-keyword">return</span> data.size;
 }</pre></div>
         
       
@@ -145,13 +156,15 @@ flipArrayEndianness = function(array) {
         <p>TonicDataManager definition</p>
 
         
-          <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TonicDataManager</span>(<span class="hljs-params"></span>) </span>{
+          <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TonicDataManager</span>(<span class="hljs-params">cacheSize = 1000000000</span>) </span>{
     <span class="hljs-keyword">this</span>.pattern = <span class="hljs-keyword">new</span> PatternMap();
     <span class="hljs-keyword">this</span>.keyToTypeMap = {};
+    <span class="hljs-keyword">this</span>.cacheSize = cacheSize;
     <span class="hljs-keyword">this</span>.cacheData = {
         cache: {},
         modified: <span class="hljs-number">0</span>,
-        ts: <span class="hljs-number">0</span>
+        ts: <span class="hljs-number">0</span>,
+        size: <span class="hljs-number">0</span>
     };
 }</pre></div>
         
@@ -164,6 +177,7 @@ flipArrayEndianness = function(array) {
 
 TonicDataManager.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.off();
+    <span class="hljs-keyword">this</span>.clear();
 }</pre></div>
         
       
@@ -199,6 +213,13 @@ This will trigger an event using the key as the type</p>
             dataCached.keysToNotify.push(key);
         }
     } <span class="hljs-keyword">else</span> {</pre></div>
+        
+      
+        
+        <p>Run Garbage collector to free memory if need be</p>
+
+        
+          <div class='highlight'><pre>        <span class="hljs-keyword">this</span>.gc();</pre></div>
         
       
         
@@ -239,6 +260,13 @@ This will trigger an event using the key as the type</p>
           <div class='highlight'><pre>                <span class="hljs-keyword">if</span>(mimeType &amp;&amp; mimeType.indexOf(<span class="hljs-string">'image'</span>) !== -<span class="hljs-number">1</span>) {
                     dataCached.url = <span class="hljs-built_in">window</span>.URL.createObjectURL(data);
                 }</pre></div>
+        
+      
+        
+        <p>Update memory usage</p>
+
+        
+          <div class='highlight'><pre>                self.cacheData.size += updateDataSize(dataCached);</pre></div>
         
       
         
@@ -350,6 +378,26 @@ mimeType is only required for blob</p>
     <span class="hljs-keyword">while</span>(count--) {
         <span class="hljs-keyword">this</span>.free(urlToDelete[count]);
     }
+    <span class="hljs-keyword">this</span>.cacheData.size = <span class="hljs-number">0</span>;
+}
+
+TonicDataManager.prototype.gc = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.cacheData.size &gt; <span class="hljs-keyword">this</span>.cacheSize) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Free cache memory'</span>, <span class="hljs-keyword">this</span>.cacheData.size);
+        <span class="hljs-keyword">this</span>.clear();
+    }
+}
+
+TonicDataManager.prototype.setCacheSize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">sizeBeforeGC</span>) </span>{
+    <span class="hljs-keyword">this</span>.cacheSize = sizeBeforeGC;
+}
+
+TonicDataManager.prototype.getCacheSize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.cacheSize;
+}
+
+TonicDataManager.prototype.getMemoryUsage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.cacheData.size;
 }</pre></div>
         
       
