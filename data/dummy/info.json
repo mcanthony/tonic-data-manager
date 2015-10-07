@@ -1,5 +1,10 @@
 {
     "type": ["tonic-query-data-model"],
+    "metadata": {
+        "dimensions": [500, 250, 30],
+        "size": 10,
+        "fields": ["temperature", "salinity"]
+    },
     "arguments": {
         "x": {
             "values": ["0", "1", "2"]
